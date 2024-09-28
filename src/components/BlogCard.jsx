@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import BlogDefault from "../assets/blog/1.jpg";
 import { FaUser } from "react-icons/fa";
 
@@ -19,14 +20,16 @@ const BlogCard = ({ image, author, subtitle, intro }) => {
           className="h-[300px] w-full rounded-lg bg-white object-cover object-top"
         />
       </div>
-      <p className="px-4 pb-3 pt-3 text-center font-medium text-neutral-600 hover:cursor-pointer hover:underline">
-        {intro
-          ? truncateIntro(intro, 150) // Adjust the character limit as needed
-          : truncateIntro(
-              `Discover the latest trends in technology, from AI advancements to software innovations. Stay ahead with insights on digital tools, coding practices, and tech solutions that shape the future of industries`,
-              150,
-            )}
-      </p>
+      <Link to="/blog">
+        <p className="px-4 pb-3 pt-3 text-center font-medium text-neutral-600 hover:cursor-pointer hover:underline">
+          {intro
+            ? truncateIntro(intro, 150) // Adjust the character limit as needed
+            : truncateIntro(
+                `Discover the latest trends in technology, from AI advancements to software innovations. Stay ahead with insights on digital tools, coding practices, and tech solutions that shape the future of industries`,
+                150,
+              )}
+        </p>
+      </Link>
       <div className="flex items-center justify-center gap-3 px-4 pb-3">
         <div className="flex items-center justify-center rounded-full bg-orange-500 p-4 text-2xl text-white">
           <FaUser />
