@@ -8,7 +8,7 @@ const CardPannel = ({ from, to, title, btntext }) => {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-medium">
+        <h1 className="text-3xl font-medium dark:text-white">
           {title ? title : "Section Title"}
         </h1>
         <StackButton label={btntext ? btntext : "View More"} fill={1} />

@@ -1,18 +1,28 @@
 import logo from "../assets/logo/mystacklogo.png";
+// import menu from "../assets/menu/menu.png";
 import { IoMenu } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import StackButton from "./StackButton";
 import userImg from "../assets/blog/2.png";
+import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDark, setisDark] = useState(false);
+
+  function toggleDarkMode() {
+    document.documentElement.classList.toggle("dark");
+    setisDark(!isDark);
+  }
 
   const currentUser = true;
 
   return (
-    <nav className="left-0 right-0 top-0 z-50 bg-white backdrop-blur-xl md:sticky">
+    <nav className="left-0 right-0 top-0 z-50 bg-white backdrop-blur-xl md:sticky dark:bg-[#222]">
+      {/* top nav bar */}
       <div className="mx-2 overflow-x-hidden overflow-y-hidden">
         <div className="mx-auto max-w-7xl py-2">
           <div className="flex items-center justify-between">
@@ -23,7 +33,7 @@ const Navbar = () => {
 
             {/*Default Navigation Menu*/}
             <div className="hidden items-center gap-5 md:flex">
-              <ul className="flex gap-5 text-lg font-bold text-neutral-500 md:text-lg">
+              <ul className="flex gap-5 text-lg font-bold text-neutral-500 md:text-lg dark:text-white">
                 {["Home", "Feed", "About Site", "Contact"].map(
                   (link, index) => (
                     <motion.li
@@ -34,13 +44,19 @@ const Navbar = () => {
                         scale: { duration: 0.6 },
                       }} // Set transition duration for both
                       key={index}
-                      className="cursor-pointer select-none border-neutral-700 hover:scale-110 hover:text-neutral-800 active:border-b"
+                      className="cursor-pointer select-none hover:text-neutral-800 dark:hover:text-neutral-400"
                     >
                       {link}
                     </motion.li>
                   ),
                 )}
               </ul>
+              <div
+                className="text-black dark:text-white"
+                onClick={toggleDarkMode}
+              >
+                {isDark ? <DarkModeOutlinedIcon /> : <WbSunnyOutlinedIcon />}
+              </div>
               {currentUser ? (
                 <div className="flex items-center">
                   <img
@@ -66,12 +82,22 @@ const Navbar = () => {
                 damping: 10,
                 duration: 0.2,
               }}
-              className="text-4xl text-green-500 md:hidden"
-              onClick={() => {
-                setIsOpen(!isOpen);
-              }}
+              className="flex items-center gap-4 md:hidden"
             >
-              {isOpen ? <IoClose /> : <IoMenu />}
+              <div
+                className="text-black dark:text-white"
+                onClick={toggleDarkMode}
+              >
+                {isDark ? <DarkModeOutlinedIcon /> : <WbSunnyOutlinedIcon />}
+              </div>
+              <div
+                className="text-4xl text-green-500"
+                onClick={() => {
+                  setIsOpen(!isOpen);
+                }}
+              >
+                {isOpen ? <IoClose /> : <IoMenu />}
+              </div>
             </motion.div>
           </div>
         </div>

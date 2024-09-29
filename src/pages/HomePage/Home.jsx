@@ -4,7 +4,7 @@ import Categories from "./Categories";
 
 const Home = () => {
   return (
-    <div className="my-2 space-y-6" style={{ flex: 4 }}>
+    <div className="my-3 space-y-6" style={{ flex: 4 }}>
       <WelcomeBanner />
       <CardPannel title={"Latest Blogs"} />
       <Categories />

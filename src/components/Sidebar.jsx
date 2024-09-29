@@ -82,22 +82,22 @@ const Sidebar = () => {
       className="scrollbar-hide sticky bottom-0 top-[86px] hidden h-[calc(100vh-86px)] overflow-x-hidden overflow-y-scroll lg:block"
       style={{ flex: 1 }}
     >
-      <div className="container my-2 flex rounded-xl bg-white/50 px-5 pb-8 pt-3">
+      <div className="container my-3 flex rounded-xl bg-white/50 px-5 pb-8 pt-3 dark:bg-[#222]">
         <div className="space-y-5">
           {LEFT_BAR_MENU.map((item, index) =>
             item.separator ? (
               <div key={index}>
                 <div className="mb-2">
-                  <hr className="border-neutral-200/10" />
+                  <hr className="border-neutral-200/10 dark:border-neutral-50/5" />
                 </div>
-                <span className="text-sm font-bold text-gray-500">
+                <span className="text-sm font-bold text-gray-500 dark:text-neutral-500">
                   {item.separator}
                 </span>
               </div>
             ) : (
               <div
                 key={index}
-                className="flex items-center gap-2 hover:font-bold"
+                className="flex items-center gap-4 hover:font-bold dark:text-white"
               >
                 <img src={item.icon} alt="menuIco" />
                 <span className="text-[15px]">{item.item}</span>

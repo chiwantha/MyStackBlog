@@ -48,12 +48,13 @@ const SOCIAL_MEDIA = {
 
 const Footer = () => {
   return (
-    <footer className="border-t-4 border-orange-950/70">
+    <footer className="border-t-4 border-orange-950/70 dark:border-orange-600">
+      {/* top container */}
       <div className="bg-orange-500/50">
         <div className="mx-2">
           <div className="mx-auto max-w-7xl py-2">
             <div className="space-y-3 py-4">
-              <div className="flex justify-center text-4xl font-bold text-orange-700">
+              <div className="flex justify-center text-4xl font-bold text-orange-700 dark:text-white">
                 <h3>SUBSCRIBE TO NEWSLETTER</h3>
               </div>
               <div className="flex items-center justify-center">
@@ -69,19 +70,20 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="bg-orange-500/20">
+      {/* center container */}
+      <div className="bg-orange-500/20 dark:bg-[#222]">
         <div className="mx-2">
           <div className="mx-auto max-w-7xl py-10">
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
               {/* Footer Profile */}
               <div className="space-y-3">
                 <img src={logo} alt="mystacklogo" width={100} />
-                <p className="border-t border-orange-500 pt-2">
+                <p className="border-t border-orange-500 pt-2 dark:border-orange-400/40 dark:text-white">
                   At MY STACK, we consistently bring you the latest updates,
                   trends, and insights to keep you informed and inspired every
                   day.
                 </p>
-                <div className="flex justify-evenly rounded-xl border border-orange-500 bg-white/30 py-4 shadow-lg">
+                <div className="flex justify-evenly rounded-xl border border-orange-500 bg-white/30 py-4 shadow-lg dark:border-orange-400/40 dark:bg-[#555]">
                   {SOCIAL_MEDIA.icons.map((link) => (
                     <a
                       href={link.url}
@@ -98,14 +100,14 @@ const Footer = () => {
               </div>
 
               {/* Categories */}
-              <div className="space-y-3 border-l border-orange-800 px-5">
+              <div className="space-y-3 border-l border-orange-800 px-5 dark:border-orange-400/40">
                 <h1 className="text-3xl font-bold text-orange-600">
                   Categories
                 </h1>
-                <ul className="pl-4 text-lg">
+                <ul className="pl-4 text-lg dark:text-neutral-300">
                   {CATEGORIES.map((cat, index) => (
                     <li
-                      className="hover:font-bold hover:text-orange-500"
+                      className="hover:font-bold hover:text-orange-500 dark:hover:text-orange-300"
                       key={index}
                     >
                       {cat}
@@ -119,10 +121,10 @@ const Footer = () => {
                 <h1 className="text-3xl font-bold text-orange-600">
                   Best Posts
                 </h1>
-                <ul className="pl-4 text-lg">
+                <ul className="pl-4 text-lg dark:text-neutral-300">
                   {BEST_POSTS.map((post, index) => (
                     <li
-                      className="hover:font-bold hover:text-orange-500"
+                      className="hover:font-bold hover:text-orange-500 dark:hover:text-orange-300"
                       key={index}
                     >
                       {post}
@@ -134,17 +136,29 @@ const Footer = () => {
               {/* Contact Information */}
               <div className="space-y-3 border-l border-orange-800 px-5">
                 <h1 className="text-3xl font-bold text-orange-600">Contact</h1>
-                <ul className="pl-4 text-lg">
+                <ul className="pl-4 text-lg dark:text-neutral-300">
                   <li>
                     <a
                       href="mailto:info@mystack.kchord.com"
-                      className="hover:font-bold hover:text-orange-500"
+                      className="hover:font-bold hover:text-orange-500 dark:text-neutral-300 dark:hover:text-orange-300"
                     >
                       info@mystack.kchord.com
                     </a>
                   </li>
                   <li>Contact: +94 78 880 6670</li>
-                  <li>Address: 361/23 Parangoda, Dekatana</li>
+                  <li>
+                    Address: 361/23 Parangoda, Dekatana,{" "}
+                    <span className="font-bold italic text-blue-800 hover:scale-105 hover:text-orange-500 dark:text-green-500">
+                      <a
+                        target="_blank"
+                        href="https://www.google.com/search?q=sri+lanka&oq=sri+lanka&gs_lcrp=EgZjaHJvbWUqBwgAEAA
+                      YjwIyBwgAEAAYjwIyEggBEC4YQxiDARixAxiABBiKBTIGCAIQRRg7MgYIAxBFGDsyBggEECMYJzIGCAUQRRg9MgYI
+                      BhBFGDwyBggHEEUYPdIBCDg5MjdqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8"
+                      >
+                        Sri Lanka
+                      </a>
+                    </span>
+                  </li>
                   <li>
                     <a
                       href="http://www.kchord.com"
@@ -159,6 +173,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      {/* btn container */}
       <div className="bg-orange-700 py-4 text-white">
         <div className="mx-2">
           <div className="mx-auto max-w-7xl">
