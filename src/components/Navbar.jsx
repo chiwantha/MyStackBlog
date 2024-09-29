@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import StackButton from "./StackButton";
 import userImg from "../assets/blog/2.png";
+import { Link } from "react-router-dom";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 
@@ -21,19 +22,21 @@ const Navbar = () => {
   const currentUser = true;
 
   return (
-    <nav className="left-0 right-0 top-0 z-50 bg-white backdrop-blur-xl md:sticky dark:bg-[#222]">
+    <nav className="left-0 right-0 top-0 z-50 bg-white backdrop-blur-xl dark:bg-[#222] md:sticky">
       {/* top nav bar */}
       <div className="mx-2 overflow-x-hidden overflow-y-hidden">
         <div className="mx-auto max-w-7xl py-2">
           <div className="flex items-center justify-between">
             {/* Nav Bar Logo */}
-            <div className="w-20 select-none bg-clip-content">
-              <img loading="lazy" src={logo} alt="nav-logo" />
-            </div>
+            <Link to="/home">
+              <div className="w-20 select-none bg-clip-content">
+                <img loading="lazy" src={logo} alt="nav-logo" />
+              </div>
+            </Link>
 
             {/*Default Navigation Menu*/}
             <div className="hidden items-center gap-5 md:flex">
-              <ul className="flex gap-5 text-lg font-bold text-neutral-500 md:text-lg dark:text-white">
+              <ul className="flex gap-5 text-lg font-bold text-neutral-500 dark:text-white md:text-lg">
                 {["Home", "Feed", "About Site", "Contact"].map(
                   (link, index) => (
                     <motion.li
