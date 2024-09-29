@@ -2,12 +2,14 @@ import logo from "../assets/logo/mystacklogo.png";
 import { IoMenu } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
 import { AnimatePresence, motion } from "framer-motion";
-
 import { useState } from "react";
 import StackButton from "./StackButton";
+import userImg from "../assets/blog/2.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const currentUser = true;
 
   return (
     <nav className="left-0 right-0 top-0 z-50 bg-white backdrop-blur-xl md:sticky">
@@ -22,22 +24,34 @@ const Navbar = () => {
             {/*Default Navigation Menu*/}
             <div className="hidden items-center gap-5 md:flex">
               <ul className="flex gap-5 text-lg font-bold text-neutral-500 md:text-lg">
-                {["Feed", "About Site", "Contact"].map((link, index) => (
-                  <motion.li
-                    initial={{ opacity: 0, scale: 0 }} // Start with 0 opacity and 0 scale
-                    whileInView={{ opacity: 1, scale: 1 }} // Animate to full opacity and normal scale
-                    transition={{
-                      opacity: { duration: 1 },
-                      scale: { duration: 0.6 },
-                    }} // Set transition duration for both
-                    key={index}
-                    className="cursor-pointer select-none border-neutral-700 hover:scale-110 hover:text-neutral-800 active:border-b"
-                  >
-                    {link}
-                  </motion.li>
-                ))}
+                {["Home", "Feed", "About Site", "Contact"].map(
+                  (link, index) => (
+                    <motion.li
+                      initial={{ opacity: 0, scale: 0 }} // Start with 0 opacity and 0 scale
+                      whileInView={{ opacity: 1, scale: 1 }} // Animate to full opacity and normal scale
+                      transition={{
+                        opacity: { duration: 1 },
+                        scale: { duration: 0.6 },
+                      }} // Set transition duration for both
+                      key={index}
+                      className="cursor-pointer select-none border-neutral-700 hover:scale-110 hover:text-neutral-800 active:border-b"
+                    >
+                      {link}
+                    </motion.li>
+                  ),
+                )}
               </ul>
-              <StackButton label={"Log In"} />
+              {currentUser ? (
+                <div className="flex items-center">
+                  <img
+                    src={userImg}
+                    alt="UserImage"
+                    className="h-[35px] w-[35px] rounded-full border-dashed border-orange-400 object-cover object-center hover:border-2"
+                  />
+                </div>
+              ) : (
+                <StackButton label={"Log In"} />
+              )}
             </div>
 
             {/* toggle btn */}
@@ -69,7 +83,7 @@ const Navbar = () => {
         transition={{ opacity: { duration: 0.6 }, height: { duration: 0.6 } }}
         className="bg-blue-70 hidden border-b-4 border-orange-700 bg-orange-500/70 backdrop-blur-md md:block"
       >
-        <div className="mx-4">
+        <div className="mx-2">
           <div className="mx-auto max-w-7xl py-1">
             <div className="flex justify-between text-white">
               {[

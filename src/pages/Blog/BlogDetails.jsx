@@ -3,7 +3,7 @@ import StackButton from "../../components/StackButton";
 
 const BlogDetails = () => {
   return (
-    <div className="">
+    <div className="my-2 space-y-6" style={{ flex: 4 }}>
       Blog Page
       <div className="">
         <Link to="/home">

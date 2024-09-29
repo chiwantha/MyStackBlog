@@ -12,7 +12,7 @@ const BlogCard = ({ image, author, subtitle, intro }) => {
   };
 
   return (
-    <div className="flex select-none flex-col flex-wrap rounded-xl pb-4 pl-0 pr-0 pt-0 shadow-lg">
+    <div className="flex select-none flex-col flex-wrap rounded-xl bg-white pb-4 pl-0 pr-0 pt-0 shadow-lg">
       <div className="rounded-lg bg-black">
         <img
           src={image ? image : BlogDefault}

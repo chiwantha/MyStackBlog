@@ -2,6 +2,7 @@
 import Background from "./components/Background";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
 import BlogDetails from "./pages/Blog/BlogDetails";
 import Home from "./pages/HomePage/Home";
 import Login from "./pages/login/login";
@@ -17,12 +18,15 @@ function App() {
 
   const Layout = () => {
     return (
-      <div className="select-none antialiased">
+      <div className="select-none bg-[#f6f3f3] antialiased">
         <Background />
         <Navbar />
         <div className="mx-2">
-          <div className="mx-auto max-w-7xl py-3">
-            <Outlet />
+          <div className="mx-auto max-w-7xl">
+            <div className="flex gap-2">
+              <Sidebar />
+              <Outlet />
+            </div>
           </div>
         </div>
         <Footer />
