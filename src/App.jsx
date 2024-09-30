@@ -6,16 +6,21 @@ import Sidebar from "./components/Sidebar";
 // import { DarkModeContextProvider } from "./context/darkModeContext";
 import BlogDetails from "./pages/Blog/BlogDetails";
 import Home from "./pages/HomePage/Home";
-import Login from "./pages/login/login";
+import Login from "./pages/Login/login";
+
 import {
   createBrowserRouter,
   Navigate,
   Outlet,
   RouterProvider,
 } from "react-router-dom";
+import Register from "./pages/Register/Register";
+import { useContext } from "react";
+import { AuthContext } from "./context/authContext";
+import Profile from "./pages/Profile/Profile";
 
 function App() {
-  const currentUser = true;
+  const { currentUser } = useContext(AuthContext);
 
   const Layout = () => {
     return (
@@ -37,7 +42,7 @@ function App() {
 
   const ProtectedRoute = ({ children }) => {
     if (!currentUser) {
-      return <Navigate to="/login" />;
+      return <Navigate to="/Login" />;
     }
     return children;
   };
@@ -46,9 +51,9 @@ function App() {
     {
       path: "/",
       element: (
-        <ProtectedRoute>
-          <Layout />
-        </ProtectedRoute>
+        // <ProtectedRoute>
+        <Layout />
+        // </ProtectedRoute>
       ),
       children: [
         {
@@ -59,16 +64,28 @@ function App() {
           path: "/blog",
           element: <BlogDetails />,
         },
+        {
+          path: "/profile",
+          element: (
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          ),
+        },
       ],
     },
     {
       path: "/login",
       element: <Login />,
     },
+    {
+      path: "/register",
+      element: <Register />,
+    },
   ]);
 
   return (
-    <div>
+    <div className="select-none">
       <RouterProvider router={router} />
     </div>
   );

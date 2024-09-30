@@ -12,12 +12,13 @@ import { Link } from "react-router-dom";
 import { DarkModeContext } from "../context/darkModeContext";
 
 import StackButton from "./StackButton";
+import { AuthContext } from "../context/authContext";
 // import menu from "../assets/menu/menu.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { darkMode, toggle } = useContext(DarkModeContext);
-  const currentUser = true;
+  const { currentUser } = useContext(AuthContext);
 
   return (
     <nav className="left-0 right-0 top-0 z-50 bg-white backdrop-blur-xl dark:bg-[#222] md:sticky">
@@ -64,14 +65,20 @@ const Navbar = () => {
               </div>
               {currentUser ? (
                 <div className="flex items-center">
-                  <img
-                    src={userImg}
-                    alt="UserImage"
-                    className="h-[35px] w-[35px] rounded-full border-dashed border-orange-400 object-cover object-center hover:border-2"
-                  />
+                  <Link to="/profile">
+                    <img
+                      src={userImg}
+                      alt="UserImage"
+                      className="h-[35px] w-[35px] rounded-full border-dashed border-orange-400 object-cover object-center hover:border-2"
+                    />
+                  </Link>
                 </div>
               ) : (
-                <StackButton label={"Log In"} />
+                <div className="">
+                  <Link to="/login">
+                    <StackButton label={"Log In"} />
+                  </Link>
+                </div>
               )}
             </div>
 
