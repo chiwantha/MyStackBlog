@@ -35,8 +35,13 @@ const Navbar = () => {
             {/*Default Navigation Menu*/}
             <div className="hidden items-center gap-5 md:flex">
               <ul className="flex gap-5 text-lg font-bold text-neutral-500 dark:text-white md:text-lg">
-                {["Home", "Feed", "About Site", "Contact"].map(
-                  (link, index) => (
+                {[
+                  { text: "Home", path: "/home" },
+                  { text: "Feed", path: "/blog" },
+                  { text: "About Site", path: "/about" },
+                  { text: "Contact", path: "/contact" },
+                ].map((link, index) => (
+                  <Link key={index} to={link.path}>
                     <motion.li
                       initial={{ opacity: 0, scale: 0 }} // Start with 0 opacity and 0 scale
                       whileInView={{ opacity: 1, scale: 1 }} // Animate to full opacity and normal scale
@@ -44,13 +49,12 @@ const Navbar = () => {
                         opacity: { duration: 1 },
                         scale: { duration: 0.6 },
                       }} // Set transition duration for both
-                      key={index}
                       className="cursor-pointer select-none hover:text-neutral-800 dark:hover:text-neutral-400"
                     >
-                      {link}
+                      {link.text}
                     </motion.li>
-                  ),
-                )}
+                  </Link>
+                ))}
               </ul>
               <div
                 onClick={toggle}
@@ -100,6 +104,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
       {/* down navigation suppoter for md-devices */}
       <motion.div
         initial={{ opacity: 0, height: 0 }}
@@ -146,17 +151,23 @@ const Navbar = () => {
             className="fixed inset-0 z-50 flex items-center justify-center bg-blue-900/90 backdrop-blur-3xl md:hidden"
           >
             <ul className="space-y-2 text-center text-xl text-green-500">
-              {["HOME", "ABOUT US", "CONTACT US"].map((link, index) => (
-                <motion.li
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 * index }}
-                  key={index}
-                  className="cursor-pointer select-none hover:scale-110 active:border-b"
-                >
-                  {link}
-                </motion.li>
+              {[
+                { text: "Home", path: "/home" },
+                { text: "Feed", path: "/blog" },
+                { text: "About Site", path: "/about" },
+                { text: "Contact", path: "/contact" },
+              ].map((link, index) => (
+                <Link key={index} to={link.path}>
+                  <motion.li
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 * index }}
+                    className="cursor-pointer select-none hover:scale-110 active:border-b"
+                  >
+                    {link.text}
+                  </motion.li>
+                </Link>
               ))}
             </ul>
           </motion.div>
