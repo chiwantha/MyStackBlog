@@ -1,24 +1,22 @@
 import logo from "../assets/logo/mystacklogo.png";
-// import menu from "../assets/menu/menu.png";
-import { IoMenu } from "react-icons/io5";
-import { IoClose } from "react-icons/io5";
-import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
-import StackButton from "./StackButton";
 import userImg from "../assets/blog/2.png";
-import { Link } from "react-router-dom";
+
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import { IoMenu } from "react-icons/io5";
+import { IoClose } from "react-icons/io5";
+
+import { useContext, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { DarkModeContext } from "../context/darkModeContext";
+
+import StackButton from "./StackButton";
+// import menu from "../assets/menu/menu.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDark, setisDark] = useState(false);
-
-  function toggleDarkMode() {
-    document.documentElement.classList.toggle("dark");
-    setisDark(!isDark);
-  }
-
+  const { darkMode, toggle } = useContext(DarkModeContext);
   const currentUser = true;
 
   return (
@@ -55,10 +53,10 @@ const Navbar = () => {
                 )}
               </ul>
               <div
-                className="text-black dark:text-white"
-                onClick={toggleDarkMode}
+                onClick={toggle}
+                className="flex h-[35px] w-[35px] items-center justify-center rounded-full border border-neutral-200 text-black dark:text-white"
               >
-                {isDark ? <DarkModeOutlinedIcon /> : <WbSunnyOutlinedIcon />}
+                {darkMode ? <DarkModeOutlinedIcon /> : <WbSunnyOutlinedIcon />}
               </div>
               {currentUser ? (
                 <div className="flex items-center">
@@ -87,11 +85,8 @@ const Navbar = () => {
               }}
               className="flex items-center gap-4 md:hidden"
             >
-              <div
-                className="text-black dark:text-white"
-                onClick={toggleDarkMode}
-              >
-                {isDark ? <DarkModeOutlinedIcon /> : <WbSunnyOutlinedIcon />}
+              <div className="text-black dark:text-white" onClick={toggle}>
+                {darkMode ? <DarkModeOutlinedIcon /> : <WbSunnyOutlinedIcon />}
               </div>
               <div
                 className="text-4xl text-green-500"

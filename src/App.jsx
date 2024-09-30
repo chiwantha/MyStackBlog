@@ -3,6 +3,7 @@ import Background from "./components/Background";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
+// import { DarkModeContextProvider } from "./context/darkModeContext";
 import BlogDetails from "./pages/Blog/BlogDetails";
 import Home from "./pages/HomePage/Home";
 import Login from "./pages/login/login";
