@@ -1,5 +1,4 @@
 import logo from "../assets/logo/mystacklogo.png";
-import userImg from "../assets/blog/2.png";
 
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
@@ -19,6 +18,8 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { darkMode, toggle } = useContext(DarkModeContext);
   const { currentUser } = useContext(AuthContext);
+
+  // console.log(currentUser.image);
 
   return (
     <nav className="left-0 right-0 top-0 z-50 bg-white backdrop-blur-xl dark:bg-[#222] md:sticky">
@@ -67,7 +68,7 @@ const Navbar = () => {
                 <div className="flex items-center">
                   <Link to="/profile">
                     <img
-                      src={userImg}
+                      src={`/profile/${currentUser.image}`}
                       alt="UserImage"
                       className="h-[35px] w-[35px] rounded-full border-dashed border-orange-400 object-cover object-center hover:border-2"
                     />

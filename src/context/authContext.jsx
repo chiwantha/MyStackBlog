@@ -12,9 +12,13 @@ export const AuthContextProvider = ({ children }) => {
     setcurrentUser({
       id: 1,
       name: "Kasun Chiwantha",
-      image: "kasun.jpg",
+      image: "profile.png",
       state: 1,
     });
+  };
+
+  const userlogout = () => {
+    setcurrentUser(null);
   };
 
   useEffect(() => {
@@ -22,7 +26,7 @@ export const AuthContextProvider = ({ children }) => {
   }, [currentUser]);
 
   return (
-    <AuthContext.Provider value={{ currentUser, userlogin }}>
+    <AuthContext.Provider value={{ currentUser, userlogin, userlogout }}>
       {children}
     </AuthContext.Provider>
   );
