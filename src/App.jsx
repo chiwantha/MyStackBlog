@@ -4,7 +4,7 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 // import { DarkModeContextProvider } from "./context/darkModeContext";
-import BlogDetails from "./pages/Blog/BlogDetails";
+import Blog from "./pages/Blog/Blog";
 import Home from "./pages/HomePage/Home";
 import Login from "./pages/Login/login";
 
@@ -18,6 +18,7 @@ import Register from "./pages/Register/Register";
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext";
 import Profile from "./pages/Profile/Profile";
+import Feed from "./pages/Feed/Feed";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -61,8 +62,12 @@ function App() {
           element: <Home />,
         },
         {
-          path: "/blog",
-          element: <BlogDetails />,
+          path: "/feed",
+          element: <Feed />,
+        },
+        {
+          path: "/blog/:blogid",
+          element: <Blog />,
         },
         {
           path: "/profile",

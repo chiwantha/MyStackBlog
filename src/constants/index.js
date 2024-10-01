@@ -8,6 +8,7 @@ import ai_img from "../assets/blog/6.jpg";
 
 export const BLOG_CARDS = [
   {
+    id: 1,
     author: "Kasun Chiwantha",
     subtitle: "Software Engineer / System Admin",
     intro: `Discover the latest trends in technology, from AI advancements to
@@ -16,6 +17,7 @@ export const BLOG_CARDS = [
     image: Tech_img,
   },
   {
+    id: 2,
     author: "Amaya Fernando",
     subtitle: "Cloud Solutions Architect",
     intro: `Explore the future of cloud computing, including hybrid models,
@@ -24,6 +26,7 @@ export const BLOG_CARDS = [
     image: cloud_img,
   },
   {
+    id: 3,
     author: "Ravindu Perera",
     subtitle: "Full Stack Developer",
     intro: `Master modern web development with in-depth guides on front-end
@@ -32,6 +35,7 @@ export const BLOG_CARDS = [
     image: web_img,
   },
   {
+    id: 4,
     author: "Nimasha Jayasinghe",
     subtitle: "Cybersecurity Specialist",
     intro: `Stay updated on cybersecurity trends, data protection 
@@ -40,6 +44,7 @@ export const BLOG_CARDS = [
     image: security_img,
   },
   {
+    id: 5,
     author: "Dilshan Abeysekera",
     subtitle: "Data Scientist",
     intro: `Unlock the power of big data with cutting-edge techniques in 
@@ -48,6 +53,7 @@ export const BLOG_CARDS = [
     image: data_img,
   },
   {
+    id: 6,
     author: "Mihiri Senanayake",
     subtitle: "AI Engineer",
     intro: `Delve into artificial intelligence advancements, including neural 
@@ -56,6 +62,7 @@ export const BLOG_CARDS = [
     image: ai_img,
   },
   {
+    id: 7,
     author: "Janith Weerasinghe",
     subtitle: "Blockchain Developer",
     intro: `Learn about blockchain technology, decentralized applications, and
@@ -63,6 +70,7 @@ export const BLOG_CARDS = [
               finance, supply chains, and various industries.`,
   },
   {
+    id: 8,
     author: "Tharindu Kariyawasam",
     subtitle: "DevOps Engineer",
     intro: `Discover the best practices in DevOps, including CI/CD pipelines,
@@ -70,6 +78,7 @@ export const BLOG_CARDS = [
               development and operations for faster, reliable releases.`,
   },
   {
+    id: 9,
     author: "Anjali Dias",
     subtitle: "Mobile App Developer",
     intro: `Stay ahead in mobile development with insights on building cross

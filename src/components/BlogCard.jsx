@@ -3,7 +3,7 @@ import BlogDefault from "../assets/blog/1.jpg";
 import { FaUser } from "react-icons/fa";
 
 // eslint-disable-next-line react/prop-types
-const BlogCard = ({ image, author, subtitle, intro }) => {
+const BlogCard = ({ id, image, author, subtitle, intro }) => {
   const truncateIntro = (text, maxChars) => {
     if (text.length > maxChars) {
       return text.slice(0, maxChars) + "...";
@@ -20,7 +20,7 @@ const BlogCard = ({ image, author, subtitle, intro }) => {
           className="h-[300px] w-full rounded-lg bg-white object-cover object-top"
         />
       </div>
-      <Link to="/blog">
+      <Link to={`/blog/${id}`}>
         <p className="px-4 pb-3 pt-3 text-center font-medium text-neutral-600 hover:cursor-pointer hover:underline">
           {intro
             ? truncateIntro(intro, 150) // Adjust the character limit as needed
