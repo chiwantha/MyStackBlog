@@ -39,7 +39,7 @@ const Navbar = () => {
               <ul className="flex gap-5 text-lg font-bold text-neutral-500 dark:text-white md:text-lg">
                 {[
                   { text: "Home", path: "/home" },
-                  { text: "Feed", path: "/blog" },
+                  { text: "Feed", path: "/feed" },
                   { text: "About Site", path: "/about" },
                   { text: "Contact", path: "/contact" },
                 ].map((link, index) => (
