@@ -1,7 +1,6 @@
 import WelcomeBanner from "../../components/WelcomeBanner";
 import CardPannel from "../../components/CardPannel";
 import Categories from "../../components/Categories";
-
 const Home = () => {
   return (
     <div className="my-3 space-y-6" style={{ flex: 4 }}>

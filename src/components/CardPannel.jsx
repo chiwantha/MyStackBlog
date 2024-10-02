@@ -29,6 +29,7 @@ const CardPannel = ({ from, to, title, btntext, link, btn }) => {
             key={index}
           >
             <BlogCard
+              category={card.category}
               id={card.id}
               author={card.author}
               subtitle={card.subtitle}
