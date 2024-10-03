@@ -35,7 +35,7 @@ const Register = () => {
           </div>
           <div>
             <Link to="/login">
-              <RegularBtn label={"Login Now"} />
+              <RegularBtn label={"Login Now"} fill={1} />
             </Link>
           </div>
         </div>
@@ -79,7 +79,7 @@ const Register = () => {
             </div>
           </form>
           <div>
-            <RegularBtn label={"Let's Start"} />
+            <RegularBtn label={"Let's Start"} fill={1} />
           </div>
         </div>
       </div>

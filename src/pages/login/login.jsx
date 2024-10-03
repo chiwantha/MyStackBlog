@@ -42,7 +42,7 @@ const login = () => {
           </div>
           <div>
             <Link to="/register">
-              <RegularBtn label={"Register Now"} />
+              <RegularBtn label={"Register Now"} fill={1} />
             </Link>
           </div>
         </div>
@@ -73,9 +73,14 @@ const login = () => {
               </div>
             </div>
           </form>
-          <div className="" onClick={handleLogin}>
+          <div className="flex gap-3 flex-wrap">
+            <div className="" onClick={handleLogin}>
+              <Link to="/home">
+                <RegularBtn label={"LogIn"} fill={1} />
+              </Link>
+            </div>
             <Link to="/home">
-              <RegularBtn label={"LogIn"} />
+              <RegularBtn label={"Back to home"} />
             </Link>
           </div>
         </div>

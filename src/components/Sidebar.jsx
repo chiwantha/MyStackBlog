@@ -2,77 +2,80 @@ import Friends from "../assets/leftbar/1.png";
 import Groups from "../assets/leftbar/2.png";
 import Market from "../assets/leftbar/3.png";
 import Watch from "../assets/leftbar/4.png";
-import Memories from "../assets/leftbar/5.png";
 import Events from "../assets/leftbar/6.png";
 import Gaming from "../assets/leftbar/7.png";
 import Gallery from "../assets/leftbar/8.png";
 import Videos from "../assets/leftbar/9.png";
 import Messages from "../assets/leftbar/10.png";
 import Tutorials from "../assets/leftbar/11.png";
-import Courses from "../assets/leftbar/12.png";
+// import Courses from "../assets/leftbar/12.png";
 import Fund from "../assets/leftbar/13.png";
+import { Link } from "react-router-dom";
 
 const LEFT_BAR_MENU = [
   {
-    separator: "Menu",
+    separator: "Account",
   },
   {
-    item: "Friends",
+    item: "Profile",
     icon: Friends,
+    path: "/profile",
   },
   {
-    item: "Groups",
+    item: "Write",
     icon: Groups,
+    path: "/addblog",
   },
   {
-    item: "Market",
+    item: "Settings",
     icon: Market,
+    path: "/userSettings",
   },
   {
-    item: "Watch",
+    item: "Dashboard",
     icon: Watch,
+    path: "/userDashboard",
   },
   {
-    item: "Memories",
-    icon: Memories,
-  },
-  {
-    separator: "Your Shortcuts",
-  },
-  {
-    item: "Events",
-    icon: Events,
-  },
-  {
-    item: "Gaming",
-    icon: Gaming,
-  },
-  {
-    item: "Gallery",
-    icon: Gallery,
-  },
-  {
-    item: "Videos",
-    icon: Videos,
-  },
-  {
-    item: "Messages",
+    item: "Author-Box",
     icon: Messages,
+    path: "/authorbox",
+  },
+  {
+    separator: "Common Links",
+  },
+  {
+    item: "Feed",
+    icon: Events,
+    path: "/feed",
+  },
+  {
+    item: "Authors",
+    icon: Gaming,
+    path: "/authors",
+  },
+  {
+    item: "Support",
+    icon: Gallery,
+    path: "/contact",
+  },
+  {
+    item: "AboutUs",
+    icon: Videos,
+    path: "/aboutus",
   },
   {
     separator: "Other",
   },
   {
-    item: "Tutorials",
+    item: "How It Works",
     icon: Tutorials,
+    path: "howtouse",
   },
   {
-    item: "Courses",
-    icon: Courses,
-  },
-  {
-    item: "Fund",
+    item: "Donate",
     icon: Fund,
+    path: "/donate",
   },
 ];
 
@@ -95,12 +98,13 @@ const Sidebar = () => {
                 </span>
               </div>
             ) : (
-              <div
-                key={index}
-                className="flex items-center gap-4 hover:font-bold dark:text-white"
-              >
-                <img src={item.icon} alt="menuIco" />
-                <span className="text-[15px]">{item.item}</span>
+              <div key={index}>
+                <Link to={item.path}>
+                  <div className="flex items-center gap-4 hover:font-bold dark:text-white">
+                    <img src={item.icon} alt="menuIco" />
+                    <span className="text-[15px]">{item.item}</span>
+                  </div>
+                </Link>
               </div>
             ),
           )}

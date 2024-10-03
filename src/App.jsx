@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 // import { DarkModeContextProvider } from "./context/darkModeContext";
 import Blog from "./pages/Blog/Blog";
+import NewBlog from "./pages/Blog/NewBlog";
 import Home from "./pages/HomePage/Home";
 import Login from "./pages/Login/login";
 
@@ -43,7 +44,7 @@ function App() {
 
   const ProtectedRoute = ({ children }) => {
     if (!currentUser) {
-      return <Navigate to="/home" />;
+      return <Navigate to="/login" />;
     }
     return children;
   };
@@ -74,6 +75,14 @@ function App() {
           element: (
             <ProtectedRoute>
               <Profile />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/addblog",
+          element: (
+            <ProtectedRoute>
+              <NewBlog />
             </ProtectedRoute>
           ),
         },
