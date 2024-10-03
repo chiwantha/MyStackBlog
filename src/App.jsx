@@ -6,6 +6,7 @@ import Sidebar from "./components/Sidebar";
 // import { DarkModeContextProvider } from "./context/darkModeContext";
 import Blog from "./pages/Blog/Blog";
 import NewBlog from "./pages/Blog/NewBlog";
+import NewBlog2 from "./pages/Blog/NewBlog2";
 import Home from "./pages/HomePage/Home";
 import Login from "./pages/Login/login";
 
@@ -83,6 +84,14 @@ function App() {
           element: (
             <ProtectedRoute>
               <NewBlog />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/addblog2",
+          element: (
+            <ProtectedRoute>
+              <NewBlog2 />
             </ProtectedRoute>
           ),
         },

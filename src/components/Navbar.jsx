@@ -162,7 +162,7 @@ const Navbar = () => {
               {[
                 { text: "Home", path: "/home" },
                 { text: "Feed", path: "/blog" },
-                { text: "About Site", path: "/about" },
+                { text: "About Site", path: "/addblog" },
                 { text: "Contact", path: "/contact" },
               ].map((link, index) => (
                 <Link key={index} to={link.path}>
