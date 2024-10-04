@@ -24,7 +24,7 @@ const LEFT_BAR_MENU = [
   {
     item: "Write",
     icon: Groups,
-    path: "/addblog",
+    path: "/addblog2",
   },
   {
     item: "Settings",

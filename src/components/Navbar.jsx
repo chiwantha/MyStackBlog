@@ -40,7 +40,7 @@ const Navbar = () => {
                 {[
                   { text: "Home", path: "/home" },
                   { text: "Feed", path: "/feed" },
-                  { text: "About Site", path: "/addblog" },
+                  { text: "About Site", path: "/addblog2" },
                   { text: "Contact", path: "/contact" },
                 ].map((link, index) => (
                   <Link key={index} to={link.path}>
@@ -162,7 +162,7 @@ const Navbar = () => {
               {[
                 { text: "Home", path: "/home" },
                 { text: "Feed", path: "/blog" },
-                { text: "About Site", path: "/addblog" },
+                { text: "About Site", path: "/addblog2" },
                 { text: "Contact", path: "/contact" },
               ].map((link, index) => (
                 <Link key={index} to={link.path}>
