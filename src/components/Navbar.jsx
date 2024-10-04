@@ -40,7 +40,7 @@ const Navbar = () => {
                 {[
                   { text: "Home", path: "/home" },
                   { text: "Feed", path: "/feed" },
-                  { text: "About Site", path: "/addblog2" },
+                  { text: "About Site", path: "/about" },
                   { text: "Contact", path: "/contact" },
                 ].map((link, index) => (
                   <Link key={index} to={link.path}>
@@ -156,13 +156,14 @@ const Navbar = () => {
               height: { duration: 0.6 },
             }} // Separate transitions for opacity and height
             onClick={() => setIsOpen(!isOpen)} // Ensure consistent naming
-            className="fixed inset-0 z-50 flex items-center justify-center bg-blue-900/90 backdrop-blur-3xl md:hidden"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-blue-950 backdrop-blur-3xl md:hidden"
           >
             <ul className="space-y-2 text-center text-xl text-green-500">
               {[
                 { text: "Home", path: "/home" },
                 { text: "Feed", path: "/blog" },
-                { text: "About Site", path: "/addblog2" },
+                { text: "About Site", path: "/about" },
+                { text: "Write Blog", path: "/addblog2" },
                 { text: "Contact", path: "/contact" },
               ].map((link, index) => (
                 <Link key={index} to={link.path}>
