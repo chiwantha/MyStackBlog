@@ -5,10 +5,10 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 // import { DarkModeContextProvider } from "./context/darkModeContext";
 import Blog from "./pages/Blog/Blog";
-import NewBlog from "./pages/Blog/NewBlog";
-import NewBlog2 from "./pages/Blog/NewBlog2";
+import BlogWrite from "./pages/Blog/BlogWrite";
 import Home from "./pages/HomePage/Home";
 import Login from "./pages/Login/login";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import {
   createBrowserRouter,
@@ -25,21 +25,25 @@ import Feed from "./pages/Feed/Feed";
 function App() {
   const { currentUser } = useContext(AuthContext);
 
+  const queryClient = new QueryClient({});
+
   const Layout = () => {
     return (
-      <div className="select-none bg-[#f6f3f3] antialiased dark:bg-[#333]">
-        <Background />
-        <Navbar />
-        <div className="mx-2">
-          <div className="mx-auto max-w-7xl">
-            <div className="flex gap-2">
-              <Sidebar />
-              <Outlet />
+      <QueryClientProvider client={queryClient}>
+        <div className="select-none bg-[#f6f3f3] antialiased dark:bg-[#333]">
+          <Background />
+          <Navbar />
+          <div className="mx-2">
+            <div className="mx-auto max-w-7xl">
+              <div className="flex gap-2">
+                <Sidebar />
+                <Outlet />
+              </div>
             </div>
           </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
+      </QueryClientProvider>
     );
   };
 
@@ -59,6 +63,10 @@ function App() {
         // </ProtectedRoute>
       ),
       children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
         {
           path: "/home",
           element: <Home />,
@@ -80,18 +88,10 @@ function App() {
           ),
         },
         {
-          path: "/addblog",
+          path: "/write",
           element: (
             <ProtectedRoute>
-              <NewBlog />
-            </ProtectedRoute>
-          ),
-        },
-        {
-          path: "/addblog2",
-          element: (
-            <ProtectedRoute>
-              <NewBlog2 />
+              <BlogWrite />
             </ProtectedRoute>
           ),
         },

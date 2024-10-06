@@ -1,19 +1,34 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useContext, useState } from "react";
 import LoginImg from "../../assets/blog/4.jpg";
 import RegularBtn from "../../components/RegularBtn";
 import { LuEye } from "react-icons/lu";
 import { LuEyeOff } from "react-icons/lu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 
 const login = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [isShow, setisShow] = useState(false);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { userlogin } = useContext(AuthContext);
+  const [err, seterr] = useState(null);
+  const navigate = useNavigate();
+  const [inputs, setinputs] = useState({
+    username: "",
+    password: "",
+  });
 
-  const handleLogin = () => {
-    userlogin();
+  const handleInputs = (e) => {
+    setinputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await userlogin(inputs);
+      navigate("/");
+    } catch (err) {
+      seterr(err.response.data);
+    }
   };
 
   return (
@@ -56,12 +71,16 @@ const login = () => {
               type="text"
               placeholder="username"
               className="border-b border-blue-200 px-4 py-2 outline-none focus:border-blue-600 md:py-3"
+              name="username"
+              onChange={handleInputs}
             />
             <div className="relative flex items-center justify-between">
               <input
                 type={isShow ? "text" : "password"}
                 placeholder="password"
                 className="w-full border-b border-blue-200 px-4 py-2 outline-none focus:border-blue-600 md:py-3"
+                name="password"
+                onChange={handleInputs}
               />
               <div
                 className="absolute right-0 cursor-pointer rounded-full px-1"
@@ -73,11 +92,10 @@ const login = () => {
               </div>
             </div>
           </form>
+          {err && err}
           <div className="flex gap-3 flex-wrap">
             <div className="" onClick={handleLogin}>
-              <Link to="/home">
-                <RegularBtn label={"LogIn"} fill={1} />
-              </Link>
+              <RegularBtn label={"LogIn"} fill={1} />
             </div>
             <Link to="/home">
               <RegularBtn label={"Back to home"} />

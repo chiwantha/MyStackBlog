@@ -4,13 +4,36 @@ import RegularBtn from "../../components/RegularBtn";
 import { LuEye } from "react-icons/lu";
 import { LuEyeOff } from "react-icons/lu";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Register = () => {
   const [isShow, setisShow] = useState(false);
-  const [isConfirmShow, setisConfirmShow] = useState(false);
+  // const [isConfirmShow, setisConfirmShow] = useState(false);
+  const [err, seterr] = useState(null);
+
+  const [inputs, setInputs] = useState({
+    username: "",
+    email: "",
+    password: "",
+    name: "",
+  });
+
+  const handleInput = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axios.post("http://localhost:8800/server/auth/register", inputs);
+    } catch (err) {
+      seterr(err);
+    }
+  };
 
   return (
-    <div className="flex h-screen items-center justify-center bg-slate-100">
+    <div className="flex  h-screen items-center justify-center bg-slate-100">
       <div className="mx-4 flex max-w-4xl flex-wrap overflow-hidden rounded-xl shadow-xl md:h-[600px]">
         {/* left */}
         <div
@@ -24,11 +47,16 @@ const Register = () => {
           <h1 className="text-2xl font-bold md:text-6xl lg:text-7xl">
             STACK FOR SHARING
           </h1>
-          <p className="text-[13px] md:text-[15px]">
+          <p className="text-[13px] md:text-[15px] hidden md:block">
             {`Join My-Stack today! Register to access insightful articles and
             expert advice on tech, coding, and software development. Share your
             knowledge, collaborate with other developers, and explore
             cutting-edge content. Let's grow together, one stack at a time!`}
+          </p>
+          <p className="text-[13px] md:text-[15px] md:hidden">
+            {`Join My-Stack to access expert tech advice, 
+            coding tips, and insightful articles. Collaborate with
+             developers and explore cutting-edge content!`}
           </p>
           <div>
             <span className="text-sm">{`Already have an account?`}</span>
@@ -47,15 +75,34 @@ const Register = () => {
           </h3>
           <form className="flex flex-col gap-3 md:gap-8">
             <input
-              type="email"
-              placeholder="Email"
+              type="text"
+              placeholder="name"
               className="border-b border-blue-200 px-4 py-2 outline-none focus:border-blue-600 md:py-3"
+              name="name"
+              onChange={handleInput}
+            />
+            <input
+              type="email"
+              placeholder="email"
+              className="border-b border-blue-200 px-4 py-2 outline-none focus:border-blue-600 md:py-3"
+              name="email"
+              onChange={handleInput}
+            />
+            <input
+              type="text"
+              placeholder="username"
+              className="border-b border-blue-200 px-4 py-2 outline-none focus:border-blue-600 md:py-3"
+              name="username"
+              onChange={handleInput}
+              maxLength={15}
             />
             <div className="relative flex items-center justify-between">
               <input
                 type={isShow ? "text" : "password"}
-                placeholder="Password"
+                placeholder="password"
                 className="w-full border-b border-blue-200 px-4 py-2 outline-none focus:border-blue-600 md:py-3"
+                name="password"
+                onChange={handleInput}
               />
               <div
                 className="absolute right-0 cursor-pointer rounded-full px-1"
@@ -64,10 +111,10 @@ const Register = () => {
                 {isShow ? <LuEyeOff /> : <LuEye />}
               </div>
             </div>
-            <div className="relative flex items-center justify-between">
+            {/* <div className="relative flex items-center justify-between">
               <input
                 type={isConfirmShow ? "text" : "password"}
-                placeholder="Confirm Password"
+                placeholder="confirm password"
                 className="w-full border-b border-blue-200 px-4 py-2 outline-none focus:border-blue-600 md:py-3"
               />
               <div
@@ -76,9 +123,10 @@ const Register = () => {
               >
                 {isConfirmShow ? <LuEyeOff /> : <LuEye />}
               </div>
-            </div>
+            </div> */}
           </form>
-          <div>
+          {err && err}
+          <div onClick={handleClick}>
             <RegularBtn label={"Let's Start"} fill={1} />
           </div>
         </div>

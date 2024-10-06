@@ -68,7 +68,7 @@ const Navbar = () => {
                 <div className="flex items-center">
                   <Link to="/profile">
                     <img
-                      src={`/profile/${currentUser.image}`}
+                      src={currentUser.image}
                       alt="UserImage"
                       className="h-[35px] w-[35px] rounded-full border-dashed border-orange-400 object-cover object-center hover:border-2"
                     />
@@ -163,7 +163,7 @@ const Navbar = () => {
                 { text: "Home", path: "/home" },
                 { text: "Feed", path: "/blog" },
                 { text: "About Site", path: "/about" },
-                { text: "Write Blog", path: "/addblog2" },
+                { text: "Write Blog", path: "/write" },
                 { text: "Contact", path: "/contact" },
               ].map((link, index) => (
                 <Link key={index} to={link.path}>
