@@ -29,7 +29,7 @@ const BlogCard = ({ blog }) => {
     <div className="flex select-none flex-col rounded-xl bg-white shadow-lg">
       <div className="rounded-lg bg-black">
         <img
-          src={blog.img ? blog.img : BlogDefault}
+          src={blog.img ? `/upload/${blog.img}` : BlogDefault}
           alt={blog.title}
           className="h-[200px] w-full rounded-lg object-cover object-top"
           loading="lazy"
@@ -62,7 +62,9 @@ const BlogCard = ({ blog }) => {
         )}
         <div className="flex flex-col justify-start">
           <h3 className="text-lg font-bold text-orange-500 hover:underline">
-            {blog.authorName || "Author Name"}
+            <Link to={"/profile/" + blog.authorId}>
+              {blog.authorName || "Author Name"}
+            </Link>
           </h3>
           <h4 className="text-sm font-light">
             {blog.authorSubtitle || "Subtitle"}

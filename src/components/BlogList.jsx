@@ -5,6 +5,13 @@ import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../axios";
 
 const BlogList = () => {
+  const scrollToTop = async () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // For smooth scrolling
+    });
+  };
+
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
   const cardsPerPage = 9;
@@ -50,6 +57,7 @@ const BlogList = () => {
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+    scrollToTop();
   };
 
   // Handle search query input change

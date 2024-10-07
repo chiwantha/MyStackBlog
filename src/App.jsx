@@ -30,7 +30,7 @@ function App() {
   const Layout = () => {
     return (
       <QueryClientProvider client={queryClient}>
-        <div className="select-none bg-[#f6f3f3] antialiased dark:bg-[#333]">
+        <div className=" bg-[#f6f3f3] antialiased dark:bg-[#333]">
           <Background />
           <Navbar />
           <div className="mx-2">
@@ -108,7 +108,7 @@ function App() {
   ]);
 
   return (
-    <div className="select-none">
+    <div className="">
       <RouterProvider router={router} />
     </div>
   );

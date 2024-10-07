@@ -17,6 +17,8 @@
     "@mui/material": "^6.1.1",
     "@tinymce/tinymce-react": "^5.1.1",
     "axios": "^1.7.7",
+    "dompurify": "^3.1.7",
+    "draft-js": "^0.11.7",
     "flowbite-react": "^0.10.2",
     "framer-motion": "^12.0.0-alpha.0",
     "jodit": "^4.2.27",

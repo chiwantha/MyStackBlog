@@ -54,6 +54,7 @@ const CardPannel = ({ from, to, title, btntext, link, btn }) => {
                 initial={{ y: 20, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.3 }}
+                viewport={{ once: true }}
                 key={blog.id}
               >
                 <BlogCard blog={blog} />

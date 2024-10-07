@@ -1,80 +1,82 @@
 import StackButton from "./StackButton";
-import { useRef, useMemo, useState } from "react";
+import { useMemo, useState, useContext, useEffect, useCallback } from "react";
 import JoditEditor from "jodit-react";
 import "tailwindcss/tailwind.css";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { makeRequest } from "../axios";
+import { DarkModeContext } from "../context/darkModeContext";
 
 const BlogEditor = () => {
+  const { darkMode } = useContext(DarkModeContext);
+  const [category, setcategory] = useState([]);
+  const [preview, setPreview] = useState(null);
+  const [file, setFile] = useState(null);
+  const [err, seterr] = useState("");
+  const queryClient = useQueryClient();
   const [inputs, setInputs] = useState({
     title: "",
-    selectedCategory: "",
+    category: "",
     intro: "",
     content: "",
+    img: "",
   });
 
-  const [suggestions, setSuggestions] = useState([]);
-  const [preview, setPreview] = useState(null);
+  const { data, isSuccess } = useQuery({
+    queryKey: ["category"],
+    queryFn: async () => {
+      const res = await makeRequest.get("/blog/category");
+      return res.data;
+    },
+  });
 
-  const editor = useRef(null);
-
-  const categories = useMemo(
-    () => [
-      "Skill Development",
-      "Talent Development",
-      "Professional Development",
-      "Networking Strategies",
-      "Influence and Persuasion",
-      "Public Speaking Techniques",
-    ],
-    [],
-  );
+  useEffect(() => {
+    if (isSuccess && data) {
+      setcategory(data.map((cat) => cat.category)); // Extract and set categories
+    }
+  }, [data, isSuccess]);
 
   const config = useMemo(
     () => ({
+      theme: darkMode && "dark",
       readonly: false,
+      disablePlugins: "add-new-line",
       placeholder: "Start typing your content...",
-      toolbar: [
-        "bold",
-        "italic",
-        "underline",
-        "strikethrough",
-        "|", // Separator
-        "font",
-        "fontsize",
-        "paragraph", // Add heading options
-        "|",
-        "unorderedlist",
-        "orderedlist",
-        "|",
-        "image",
-        "video",
-        "table",
-        "link",
-        "|",
-        "clean",
-      ],
       uploader: {
-        insertImageAsBase64URI: true,
+        insertImageAsBase64URI: true, // Enables image upload as base64
       },
     }),
-    [],
+    [darkMode],
   );
 
+  const upload = async () => {
+    try {
+      const formdata = new FormData();
+      formdata.append("file", file);
+      const res = await makeRequest.post("/upload/image", formdata);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
       const reader = new FileReader();
       reader.onloadend = () => setPreview(reader.result);
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(selectedFile);
     }
   };
 
   const handleDrop = (event) => {
     event.preventDefault();
-    const file = event.dataTransfer.files[0];
-    if (file) {
+    const droppedFile = event.dataTransfer.files[0];
+    if (droppedFile) {
+      setFile(droppedFile);
       const reader = new FileReader();
       reader.onloadend = () => setPreview(reader.result);
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(droppedFile);
     }
   };
 
@@ -86,36 +88,52 @@ const BlogEditor = () => {
     document.getElementById("dropzone-file").click();
   };
 
-  const handleCategoryChange = (event) => {
-    const inputValue = event.target.value;
-    setInputs((prev) => ({ ...prev, selectedCategory: inputValue }));
-
-    if (inputValue) {
-      const filteredSuggestions = categories.filter((category) =>
-        category.toLowerCase().includes(inputValue.toLowerCase()),
-      );
-      setSuggestions(filteredSuggestions);
-    } else {
-      setSuggestions([]);
-    }
-  };
-
-  const handleSuggestionClick = (category) => {
-    setInputs((prev) => ({ ...prev, selectedCategory: category }));
-    setSuggestions([]);
-  };
-
-  const handleIntroChange = (e) => {
-    const newIntro = e.target.value.slice(0, 100);
-    setInputs((prev) => ({ ...prev, intro: newIntro }));
-  };
-
-  const handleTitleChange = (e) => {
-    setInputs((prev) => ({ ...prev, title: e.target.value }));
-  };
-
-  const handleContentChange = (newContent) => {
+  const handleContentChange = useCallback((newContent) => {
     setInputs((prev) => ({ ...prev, content: newContent }));
+  }, []);
+
+  const handleInputChange = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const mutation = useMutation({
+    mutationKey: ["newBlog"],
+    mutationFn: async (newBlog) => {
+      return await makeRequest.post("/blog/new", newBlog);
+    },
+    onSuccess: (data) => {
+      console.log(data);
+      queryClient.invalidateQueries("feed");
+      queryClient.invalidateQueries("postPannel");
+    },
+    onError: (error) => {
+      // Accessing error response from the server
+      if (error.response) {
+        // Server responded with a status other than 200
+        seterr(error.response.data); // Use the message from the server response
+      } else if (error.request) {
+        // The request was made but no response was received
+        seterr("No response from the server");
+      } else {
+        // Something happened in setting up the request
+        seterr("Error: " + error.message);
+      }
+    },
+  });
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    if (file) inputs.img = await upload();
+    mutation.mutate(inputs);
+    setInputs({
+      title: "",
+      category: "",
+      intro: "",
+      content: "",
+      img: "",
+    });
+    setFile(null);
+    setPreview(null);
   };
 
   return (
@@ -125,41 +143,39 @@ const BlogEditor = () => {
         <span className="text-orange-400">Blog Title</span>
         <input
           type="text"
-          className="border-neutral-400 border p-2 rounded-lg"
+          className=" border p-2 rounded-lg bg-gray-50
+           dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 dark:text-neutral-300"
           placeholder="Title Here ..."
           value={inputs.title}
-          onChange={handleTitleChange}
+          name="title"
+          onChange={handleInputChange}
         />
       </div>
 
       {/* Category */}
       <div className="space-y-1 flex-col flex relative">
         <span className="text-orange-400">Select Category</span>
-        <input
-          type="text"
-          className="border-neutral-400 border p-2 rounded-lg"
-          placeholder="Select a category..."
-          value={inputs.selectedCategory}
-          onChange={handleCategoryChange}
-        />
-        {suggestions.length > 0 && (
-          <ul className="absolute border bg-neutral-300 z-50 top-[74px] w-full border-neutral-400 rounded-lg max-h-60 overflow-auto">
-            {suggestions.map((category, index) => (
-              <li
-                key={index}
-                className="p-2 hover:bg-gray-200 cursor-pointer"
-                onClick={() => handleSuggestionClick(category)}
-              >
-                {category}
-              </li>
-            ))}
-          </ul>
-        )}
+        <select
+          className="border p-2 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600
+          dark:text-neutral-300 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+          value={inputs.category}
+          name="category"
+          onChange={handleInputChange}
+        >
+          <option value="" disabled>
+            Select a category...
+          </option>
+          {category.map((cat, index) => (
+            <option key={index} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
       </div>
 
       {/* Intro */}
       <div className="space-y-1 flex-col flex relative">
-        <div>
+        <div className="">
           <span className="text-orange-400">Blog Intro</span>
           {inputs.intro.length > 0 && (
             <span
@@ -174,11 +190,13 @@ const BlogEditor = () => {
           )}
         </div>
         <textarea
-          className="border-neutral-400 border p-2 rounded-lg"
+          className="border p-2 rounded-lg bg-gray-50
+          dark:text-neutral-300 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
           placeholder="Give an introduction to your blog ..."
           rows={3}
           value={inputs.intro}
-          onChange={handleIntroChange}
+          name="intro"
+          onChange={handleInputChange}
           maxLength={100}
         />
       </div>
@@ -195,7 +213,10 @@ const BlogEditor = () => {
                 className="w-full h-auto rounded-lg"
               />
               <button
-                onClick={() => setPreview(null)}
+                onClick={() => {
+                  setPreview(null);
+                  setFile(null); // Clear the file as well
+                }}
                 className="absolute top-1 right-3 mt-2 px-4 py-2 bg-red-500 hover:bg-red-400 text-white rounded-full transition-all"
               >
                 X
@@ -204,56 +225,69 @@ const BlogEditor = () => {
           ) : (
             <div className="flex items-center justify-center w-full">
               <div
-                className="flex flex-col items-center justify-center w-full h-36 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                className="flex flex-col items-center justify-center w-full h-36 border-2 border-dashed border-gray-300 rounded-lg 
+              cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
                 onClick={triggerFileInput}
                 onDrop={handleDrop}
                 onDragOver={handleDragOver}
               >
                 <div className="flex flex-col items-center justify-center">
                   <svg
-                    className="w-8 h-8 text-gray-400"
+                    className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                    viewBox="0 0 20 16"
                   >
                     <path
+                      stroke="currentColor"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M7 17l10-10m0 0L7 7m10 10V7a4 4 0 00-4-4H6a4 4 0 00-4 4v10a4 4 0 004 4h10a4 4 0 004-4z"
+                      strokeWidth="2"
+                      d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
                     />
                   </svg>
-                  <p className="text-gray-400">Click to upload or drop file</p>
-                  <input
-                    id="dropzone-file"
-                    type="file"
-                    className="hidden"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                  />
+                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                    <span className="font-semibold">Click to upload</span> or
+                    drag and drop
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    SVG, PNG, JPG or GIF (MAX. 800x400px)
+                  </p>
                 </div>
+                <input
+                  id="dropzone-file"
+                  type="file"
+                  className="hidden"
+                  onChange={handleImageUpload}
+                  accept="image/*"
+                />
               </div>
             </div>
           )}
         </div>
       </div>
 
-      {/* Content Editor */}
-      <div>
+      {/* Blog Content */}
+      <div className="space-y-1">
         <span className="text-orange-400">Blog Content</span>
-        <JoditEditor
-          ref={editor}
-          value={inputs.content}
-          config={config}
-          tabIndex={1}
-          onChange={handleContentChange} // Update the content in the state
-        />
+        <div>
+          <JoditEditor
+            value={inputs.content}
+            config={config}
+            tabIndex={1}
+            onChange={handleContentChange} // Update the content in the state
+          />
+        </div>
       </div>
 
-      {/* Submit Button */}
-      <div className="flex justify-center">
-        <StackButton />
+      {err && (
+        <div className="mt-5  py-2 bg-red-300 flex dark:bg-red-800 dark:text-white justify-center rounded-lg">
+          {err}
+        </div>
+      )}
+
+      <div onClick={handleClick}>
+        <StackButton label={"Create Blog"} />
       </div>
     </div>
   );

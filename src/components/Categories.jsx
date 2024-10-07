@@ -68,6 +68,7 @@ const Categories = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 * index }}
           key={index}
           className={`rounded-lg ${cat.bgColor ? `${cat.bgColor}` : "bg-white/20"} ${cat.color ? cat.color : "text-black"} flex flex-col items-center justify-center space-y-1 px-3 py-3`}

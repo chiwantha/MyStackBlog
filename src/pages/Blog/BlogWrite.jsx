@@ -3,6 +3,13 @@ import StackButton from "../../components/StackButton";
 import BlogEditor from "../../components/BlogEditor";
 
 const BlogWrite = () => {
+  const scrollToTop = async () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // For smooth scrolling
+    });
+  };
+  scrollToTop();
   return (
     <div className="my-3 space-y-3" style={{ flex: 4 }}>
       {/* Header */}
