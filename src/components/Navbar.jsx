@@ -74,7 +74,7 @@ const Navbar = () => {
               </div>
               {currentUser ? (
                 <div className="flex items-center">
-                  <Link to="/profile">
+                  <Link to={`/profile/${currentUser.slug}`}>
                     {currentUser.image ? (
                       <img
                         src={currentUser.image}

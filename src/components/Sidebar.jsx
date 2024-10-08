@@ -11,75 +11,81 @@ import Tutorials from "../assets/leftbar/11.png";
 // import Courses from "../assets/leftbar/12.png";
 import Fund from "../assets/leftbar/13.png";
 import { Link } from "react-router-dom";
+import { useContext, useMemo } from "react";
+import { AuthContext } from "../context/authContext";
 
-const LEFT_BAR_MENU = [
-  {
-    separator: "Account",
-  },
-  {
-    item: "Profile",
-    icon: Friends,
-    path: "/profile",
-  },
-  {
-    item: "Write",
-    icon: Groups,
-    path: "/write",
-  },
-  {
-    item: "Settings",
-    icon: Market,
-    path: "/userSettings",
-  },
-  {
-    item: "Dashboard",
-    icon: Watch,
-    path: "/userDashboard",
-  },
-  {
-    item: "Author-Box",
-    icon: Messages,
-    path: "/authorbox",
-  },
-  {
-    separator: "Common Links",
-  },
-  {
-    item: "Feed",
-    icon: Events,
-    path: "/feed",
-  },
-  {
-    item: "Authors",
-    icon: Gaming,
-    path: "/authors",
-  },
-  {
-    item: "Support",
-    icon: Gallery,
-    path: "/contact",
-  },
-  {
-    item: "AboutUs",
-    icon: Videos,
-    path: "/aboutus",
-  },
-  {
-    separator: "Other",
-  },
-  {
-    item: "How It Works",
-    icon: Tutorials,
-    path: "howtouse",
-  },
-  {
-    item: "Donate",
-    icon: Fund,
-    path: "/donate",
-  },
-];
+// eslint-disable-next-line react-hooks/rules-of-hooks
 
 const Sidebar = () => {
+  const { currentUser } = useContext(AuthContext);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const LEFT_BAR_MENU = useMemo(() => [
+    {
+      separator: "Account",
+    },
+    {
+      item: "Profile",
+      icon: Friends,
+      path: currentUser ? `/profile/${currentUser.slug}` : "/login",
+    },
+    {
+      item: "Write",
+      icon: Groups,
+      path: "/write",
+    },
+    {
+      item: "Settings",
+      icon: Market,
+      path: "/userSettings",
+    },
+    {
+      item: "Dashboard",
+      icon: Watch,
+      path: "/userDashboard",
+    },
+    {
+      item: "Author-Box",
+      icon: Messages,
+      path: "/authorbox",
+    },
+    {
+      separator: "Common Links",
+    },
+    {
+      item: "Feed",
+      icon: Events,
+      path: "/feed",
+    },
+    {
+      item: "Authors",
+      icon: Gaming,
+      path: "/authors",
+    },
+    {
+      item: "Support",
+      icon: Gallery,
+      path: "/contact",
+    },
+    {
+      item: "AboutUs",
+      icon: Videos,
+      path: "/aboutus",
+    },
+    {
+      separator: "Other",
+    },
+    {
+      item: "How It Works",
+      icon: Tutorials,
+      path: "howtouse",
+    },
+    {
+      item: "Donate",
+      icon: Fund,
+      path: "/donate",
+    },
+  ]);
   return (
     <div
       className="scrollbar-hide sticky bottom-0 top-[86px] hidden h-[calc(100vh-86px)] overflow-x-hidden overflow-y-scroll lg:block"

@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { useState } from "react";
 import RegisterImg from "../../assets/blog/4.jpg";
 import RegularBtn from "../../components/RegularBtn";
@@ -16,10 +17,30 @@ const Register = () => {
     email: "",
     password: "",
     name: "",
+    slug: "",
   });
 
+  const generateSlug = (title) => {
+    const timestamp = Date.now(); // Get current timestamp
+
+    return `${
+      title
+        .toLowerCase() // Convert to lowercase
+        .replace(/\s+/g, "-") // Replace spaces with hyphens
+        .replace(/[^\w\-]+/g, "") // Remove all non-word chars
+        .replace(/\-\-+/g, "-") // Replace multiple hyphens with a single hyphen
+        .replace(/^-+|-+$/g, "") // Trim hyphens from start and end
+    }-${timestamp}`; // Append timestamp
+  };
+
   const handleInput = (e) => {
-    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+
+    setInputs((prev) => ({
+      ...prev,
+      [name]: value,
+      slug: name === "name" ? generateSlug(value) : prev.slug, // Correct placement of slug update
+    }));
   };
 
   const handleClick = async (e) => {
