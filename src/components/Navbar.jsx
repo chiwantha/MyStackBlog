@@ -14,15 +14,23 @@ import StackButton from "./StackButton";
 import { AuthContext } from "../context/authContext";
 // import menu from "../assets/menu/menu.png";
 
+import { IoHomeOutline } from "react-icons/io5";
+import { MdDynamicFeed } from "react-icons/md";
+import { FaInfo, FaUser } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
+import { TfiWrite } from "react-icons/tfi";
+import { FaPhoneAlt } from "react-icons/fa";
+import { FaWindowClose } from "react-icons/fa";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { darkMode, toggle } = useContext(DarkModeContext);
   const { currentUser } = useContext(AuthContext);
 
-  // console.log(currentUser.image);
-
   return (
-    <nav className="left-0 right-0 top-0 z-50 bg-white backdrop-blur-xl dark:bg-[#222] md:sticky">
+    <nav
+      className={`left-0 ${isOpen ? `sticky` : `relative`} right-0 top-0 z-50 bg-white backdrop-blur-xl dark:bg-[#222] md:sticky`}
+    >
       {/* top nav bar */}
       <div className="mx-2 overflow-x-hidden overflow-y-hidden">
         <div className="mx-auto max-w-7xl py-2">
@@ -60,18 +68,24 @@ const Navbar = () => {
               </ul>
               <div
                 onClick={toggle}
-                className="flex h-[35px] w-[35px] items-center justify-center rounded-full border border-neutral-200 text-black dark:text-white"
+                className="flex h-[35px] w-[35px] items-center justify-center rounded-full text-black dark:text-white"
               >
                 {darkMode ? <DarkModeOutlinedIcon /> : <WbSunnyOutlinedIcon />}
               </div>
               {currentUser ? (
                 <div className="flex items-center">
                   <Link to="/profile">
-                    <img
-                      src={currentUser.image}
-                      alt="UserImage"
-                      className="h-[35px] w-[35px] rounded-full border-dashed border-orange-400 object-cover object-center hover:border-2"
-                    />
+                    {currentUser.image ? (
+                      <img
+                        src={currentUser.image}
+                        alt="UserImage"
+                        className="h-[35px] w-[35px] rounded-full border-dashed border-orange-400 object-cover object-center hover:border-2"
+                      />
+                    ) : (
+                      <div className="flex items-center justify-center rounded-full bg-orange-500  h-[35px] w-[35px] text-lg text-white">
+                        <FaUser />
+                      </div>
+                    )}
                   </Link>
                 </div>
               ) : (
@@ -147,39 +161,57 @@ const Navbar = () => {
       {/* mobile navigatoin menu */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "100vh" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{
-              opacity: { duration: 0.3 },
-              height: { duration: 0.6 },
-            }} // Separate transitions for opacity and height
-            onClick={() => setIsOpen(!isOpen)} // Ensure consistent naming
-            className="fixed inset-0 z-50 flex items-center justify-center bg-blue-950 backdrop-blur-3xl md:hidden"
-          >
-            <ul className="space-y-2 text-center text-xl text-green-500">
-              {[
-                { text: "Home", path: "/home" },
-                { text: "Feed", path: "/blog" },
-                { text: "About Site", path: "/about" },
-                { text: "Write Blog", path: "/write" },
-                { text: "Contact", path: "/contact" },
-              ].map((link, index) => (
-                <Link key={index} to={link.path}>
-                  <motion.li
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.6, delay: 0.3 * index }}
-                    className="cursor-pointer select-none hover:scale-110 active:border-b"
-                  >
-                    {link.text}
-                  </motion.li>
-                </Link>
-              ))}
-            </ul>
-          </motion.div>
+          <div className="z-50">
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "100vh" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{
+                opacity: { duration: 0.6 },
+                height: { duration: 0.4 },
+              }} // Separate transitions for opacity and height
+              onClick={() => setIsOpen(!isOpen)} // Ensure consistent naming
+              className="fixed top-0 inset-0 flex flex-col pt-24 justify-start items-center space-y-2 md:hidden"
+              style={{
+                background: `linear-gradient(rgba(238, 90, 36, 0.9) , rgba(39,11,96,0.9)),url(https://www.shutterstock.com/image-vector/vector-seamless-pattern-blogging-social-600nw-434264536.jpg)`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            >
+              <div className="grid grid-cols-3 gap-2">
+                <div
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="cursor-pointer aspect-square flex items-center justify-center
+                       border-green-400 border text-white w-[90px]  select-none rounded-lg
+                       text-3xl"
+                >
+                  <FaWindowClose />
+                </div>
+                {[
+                  { text: <IoHomeOutline />, path: "/home" },
+                  { text: <MdDynamicFeed />, path: "/feed" },
+                  { text: <FaInfo />, path: "/about" },
+                  { text: <CgProfile />, path: "/profile" },
+                  { text: <TfiWrite />, path: "/write" },
+                  { text: <FaPhoneAlt />, path: "/contact" },
+                ].map((link, index) => (
+                  <Link key={index} to={link.path}>
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.6, delay: 0.2 * index }}
+                      className="cursor-pointer aspect-square flex items-center justify-center
+                       border-green-400 border text-white w-[90px]  select-none rounded-lg
+                       text-3xl"
+                    >
+                      {link.text}
+                    </motion.div>
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </nav>

@@ -50,18 +50,17 @@ const Blog = () => {
           />
         </div>
       ) : (
-        data &&
-        data.map((singleblog) => (
+        data && (
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            key={singleblog.id}
+            key={data[0].id}
             className=""
           >
-            <Read blog={singleblog} />
+            <Read blog={data[0]} />
           </motion.div>
-        ))
+        )
       )}
 
       {/* Related Blogs */}
@@ -75,7 +74,7 @@ const Blog = () => {
           viewport={{ once: true }}
           className=""
         >
-          <CardPannel />
+          <CardPannel title={"Related Cards"} />
         </motion.div>
       )}
     </div>

@@ -4,7 +4,7 @@ import RegularBtn from "../../components/RegularBtn";
 import { LuEye } from "react-icons/lu";
 import { LuEyeOff } from "react-icons/lu";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { makeRequest } from "../../axios";
 
 const Register = () => {
   const [isShow, setisShow] = useState(false);
@@ -26,7 +26,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:8800/server/auth/register", inputs);
+      await makeRequest.post("/auth/register", inputs);
     } catch (err) {
       seterr(err);
     }

@@ -1,4 +1,4 @@
-import { SiMongodb } from "react-icons/si";
+import { SiMysql } from "react-icons/si";
 import { SiExpress } from "react-icons/si";
 import { FaReact } from "react-icons/fa";
 import { FaNode } from "react-icons/fa";
@@ -16,12 +16,12 @@ const WelcomeMessage = () => (
 // eslint-disable-next-line react/jsx-key
 const ICONS = [
   {
-    icon: <SiMongodb />,
-    color: "text-green-500",
+    icon: <SiMysql />,
+    color: "text-yellow-500",
   },
   {
     icon: <SiExpress />,
-    color: "text-black",
+    color: "text-black dark:text-white",
   },
   {
     icon: <FaReact />,
