@@ -42,7 +42,7 @@ const BlogCard = ({ blog }) => {
           {blog.category}
         </span>
       </div>
-      <Link to={`/blog/${blog.id}`}>
+      <Link to={`/blog/${blog.slug}`}>
         <p className="px-4 pb-4 pt-4 text-center text-neutral-600 hover:underline">
           {blog.intro
             ? truncateIntro(blog.intro, 100)
@@ -62,7 +62,7 @@ const BlogCard = ({ blog }) => {
         )}
         <div className="flex flex-col justify-start">
           <h3 className="text-lg font-bold text-orange-500 hover:underline">
-            <Link to={"/profile/" + blog.authorId}>
+            <Link to={`/profile/${blog.authorSlug}`}>
               {blog.authorName || "Author Name"}
             </Link>
           </h3>

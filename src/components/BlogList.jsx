@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { motion } from "framer-motion";
 import BlogCard from "./BlogCard";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../axios";
 
-const BlogList = () => {
+const BlogList = ({ userId = "" }) => {
   const scrollToTop = async () => {
     window.scrollTo({
       top: 0,
@@ -20,7 +21,7 @@ const BlogList = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["feed"],
     queryFn: async () => {
-      const res = await makeRequest.get("/blog/feed");
+      const res = await makeRequest.get(`/blog/feed?userId=${userId}`);
       return res.data;
     },
   });

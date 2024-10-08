@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import StackButton from "./StackButton";
 import { useMemo, useState, useContext, useEffect, useCallback } from "react";
 import JoditEditor from "jodit-react";
@@ -19,6 +20,7 @@ const BlogEditor = () => {
     intro: "",
     content: "",
     img: "",
+    slug: "",
   });
 
   const { data, isSuccess } = useQuery({
@@ -92,8 +94,27 @@ const BlogEditor = () => {
     setInputs((prev) => ({ ...prev, content: newContent }));
   }, []);
 
+  const generateSlug = (title) => {
+    const timestamp = Date.now(); // Get current timestamp
+
+    return `${
+      title
+        .toLowerCase() // Convert to lowercase
+        .replace(/\s+/g, "-") // Replace spaces with hyphens
+        .replace(/[^\w\-]+/g, "") // Remove all non-word chars
+        .replace(/\-\-+/g, "-") // Replace multiple hyphens with a single hyphen
+        .replace(/^-+|-+$/g, "") // Trim hyphens from start and end
+    }-${timestamp}`; // Append timestamp
+  };
+
   const handleInputChange = (e) => {
-    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+
+    setInputs((prev) => ({
+      ...prev,
+      [name]: value,
+      slug: name === "title" ? generateSlug(value) : prev.slug, // Correct placement of slug update
+    }));
   };
 
   const mutation = useMutation({
@@ -148,8 +169,14 @@ const BlogEditor = () => {
           placeholder="Title Here ..."
           value={inputs.title}
           name="title"
+          maxLength={200}
           onChange={handleInputChange}
         />
+        {inputs.title !== "" && (
+          <div>
+            <span className="text-gray-500">Generated Slug: {inputs.slug}</span>
+          </div>
+        )}
       </div>
 
       {/* Category */}

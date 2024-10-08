@@ -14,15 +14,15 @@ const Blog = () => {
     });
   };
   scrollToTop();
-  const blogId = useLocation().pathname.split("/")[2];
+  const slug = useLocation().pathname.split("/")[2];
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["singleblog", blogId],
+    queryKey: ["singleblog", slug],
     queryFn: async () => {
-      const res = await makeRequest.get(`/blog/single?blogId=${blogId}`);
+      const res = await makeRequest.get(`/blog/single?slug=${slug}`);
       return res.data;
     },
-    enabled: !!blogId,
+    enabled: !!slug,
   });
 
   return (

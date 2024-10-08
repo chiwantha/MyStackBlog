@@ -76,11 +76,11 @@ function App() {
           element: <Feed />,
         },
         {
-          path: "/blog/:blogid",
+          path: "/blog/:blogSulg",
           element: <Blog />,
         },
         {
-          path: "/profile",
+          path: "/profile/:userSulg",
           element: (
             <ProtectedRoute>
               <Profile />
