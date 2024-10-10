@@ -4,13 +4,14 @@ import RegisterImg from "../../assets/blog/4.jpg";
 import RegularBtn from "../../components/RegularBtn";
 import { LuEye } from "react-icons/lu";
 import { LuEyeOff } from "react-icons/lu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { makeRequest } from "../../axios";
 
 const Register = () => {
   const [isShow, setisShow] = useState(false);
   // const [isConfirmShow, setisConfirmShow] = useState(false);
   const [err, seterr] = useState(null);
+  const navigate = useNavigate();
 
   const [inputs, setInputs] = useState({
     username: "",
@@ -48,6 +49,7 @@ const Register = () => {
 
     try {
       await makeRequest.post("/auth/register", inputs);
+      navigate(`/login`);
     } catch (err) {
       seterr(err);
     }

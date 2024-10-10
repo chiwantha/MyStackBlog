@@ -49,7 +49,7 @@ const Navbar = () => {
                   { text: "Home", path: "/home" },
                   { text: "Feed", path: "/feed" },
                   { text: "About Site", path: "/about" },
-                  { text: "Contact", path: "/contact" },
+                  // { text: "Contact", path: "/contact" },
                 ].map((link, index) => (
                   <Link key={index} to={link.path}>
                     <motion.li
@@ -193,7 +193,7 @@ const Navbar = () => {
                   { text: <FaInfo />, path: "/about" },
                   { text: <CgProfile />, path: "/profile" },
                   { text: <TfiWrite />, path: "/write" },
-                  { text: <FaPhoneAlt />, path: "/contact" },
+                  { text: <FaPhoneAlt />, path: "/about" },
                 ].map((link, index) => (
                   <Link key={index} to={link.path}>
                     <motion.div

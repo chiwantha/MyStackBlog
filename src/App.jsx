@@ -21,6 +21,7 @@ import { useContext } from "react";
 import { AuthContext } from "./context/authContext";
 import Profile from "./pages/Profile/Profile";
 import Feed from "./pages/Feed/Feed";
+import About from "./pages/About/About";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -74,6 +75,10 @@ function App() {
         {
           path: "/feed",
           element: <Feed />,
+        },
+        {
+          path: "/about",
+          element: <About />,
         },
         {
           path: "/blog/:blogSulg",

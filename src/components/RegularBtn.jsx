@@ -1,11 +1,18 @@
 // eslint-disable-next-line react/prop-types
-const RegularBtn = ({ label, width, fill }) => {
-  // console.log(`${width ? `w-${width}` : "w-1/2"}`);
+const RegularBtn = ({ label, width, fill, textSize, bg }) => {
+  // Define the color, fallback to orange if bg is not provided
+  const bgColor = bg ? bg : "orange";
+  console.log(bg);
+
   return (
     <button
-      className={`rounded-lg  px-6 py-2 transition-transform hover:scale-105 border
-        ${fill == 1 ? "bg-orange-400 hover:bg-orange-400/80 border-orange-400 text-white" : "bg-white text-orange-400 border-orange-400 hover:bg-orange-100"}
-        ${width ? `w-${width}` : ""} `}
+      className={`rounded-lg px-6 py-2 transition-transform hover:scale-105 border flex items-center justify-center
+        ${
+          fill == 1
+            ? `bg-${bgColor}-400 hover:bg-${bgColor}-400/80 border-${bgColor}-400 text-white`
+            : `bg-white text-${bgColor}-400 border-${bgColor}-400 hover:bg-${bgColor}-100`
+        }
+        ${width ? `w-${width}` : ""} ${textSize ? `text-${textSize}` : ""}`}
     >
       {label}
     </button>

@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { FaComment, FaHeart, FaShareAlt, FaUser } from "react-icons/fa";
+import { FaHeart, FaShareAlt, FaUser } from "react-icons/fa";
 import BlogImg from "../assets/blog/2.png";
 import { Link } from "react-router-dom";
 import DOMPurify from "dompurify";
+import Comment from "./Comment";
 
 const Read = ({ blog }) => {
   const colors = [
@@ -111,8 +112,11 @@ const Read = ({ blog }) => {
               onClick={() => setisLiked(!isLiked)}
             />
             <FaShareAlt />
-            <FaComment className="hidden" />
           </div>
+        </div>
+
+        <div className="flex items-center rounded-xl bg-slate-200 p-2 dark:bg-slate-400/40">
+          <Comment />
         </div>
       </div>
     </div>
