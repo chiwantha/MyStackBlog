@@ -74,7 +74,7 @@ const Blog = () => {
           viewport={{ once: true }}
           className=""
         >
-          <CardPannel title={"Related Cards"} />
+          <CardPannel title={"Related Cards"} cat={data[0].category} />
         </motion.div>
       )}
     </div>

@@ -6,12 +6,12 @@ import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../axios";
 
 // eslint-disable-next-line react/prop-types
-const CardPannel = ({ from, to, title, btntext, link, btn }) => {
+const CardPannel = ({ from, to, title, btntext, link, btn, cat }) => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["postPannel"],
     queryFn: async () => {
       try {
-        const res = await makeRequest.get("/blog/latest");
+        const res = await makeRequest.get(`/blog/latest?cat=${cat ? cat : ""}`);
         return res.data;
       } catch (err) {
         console.log(err);

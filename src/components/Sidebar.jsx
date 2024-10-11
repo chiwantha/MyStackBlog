@@ -91,7 +91,7 @@ const Sidebar = () => {
       className="scrollbar-hide sticky bottom-0 top-[86px] hidden h-[calc(100vh-86px)] overflow-x-hidden overflow-y-scroll lg:block"
       style={{ flex: 1 }}
     >
-      <div className="container my-3 flex rounded-xl bg-white/50 px-5 pb-8 pt-3 dark:bg-[#222]">
+      <div className="container my-3 flex rounded-xl bg-white/50 px-5 pb-8 pt-3 dark:bg-[#222] border shadow-md border-slate-300/50 dark:border-slate-600/50">
         <div className="space-y-5">
           {LEFT_BAR_MENU.map((item, index) =>
             item.separator ? (
