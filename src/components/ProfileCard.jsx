@@ -44,7 +44,7 @@ const ProfileCard = ({ data, onList }) => {
         <img
           src={data.image}
           alt=""
-          className={`${onList == 1 ? `w-full sm:w-[200px]` : `w-full sm:w-[320px]`} object-cover  aspect-square rounded-lg border-4 border-orange-500`}
+          className={`${onList == 1 ? `w-full sm:w-[200px]` : `w-full sm:w-[320px]`} object-cover aspect-square rounded-lg border-4 border-orange-500`}
         />
       ) : (
         <img

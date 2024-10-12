@@ -23,6 +23,7 @@ import Profile from "./pages/Profile/Profile";
 import Feed from "./pages/Feed/Feed";
 import About from "./pages/About/About";
 import Authors from "./pages/Profile/Authors";
+import Gallery from "./pages/Gallery/Gallery";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -82,6 +83,10 @@ function App() {
         {
           path: "/authors",
           element: <Authors />,
+        },
+        {
+          path: "/gallery",
+          element: <Gallery />,
         },
         {
           path: "/blog/:blogSulg",
