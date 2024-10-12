@@ -4,18 +4,23 @@ import RegisterImg from "../../assets/blog/4.jpg";
 import RegularBtn from "../../components/RegularBtn";
 import { LuEye } from "react-icons/lu";
 import { LuEyeOff } from "react-icons/lu";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { makeRequest } from "../../axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import sucess from "../../assets/images/success.gif";
 
 const Register = () => {
   const [isShow, setisShow] = useState(false);
+  const regForm = document.getElementById("regForm");
+  const successForm = document.getElementById("successReg");
+  const queryClient = useQueryClient();
   // const [isConfirmShow, setisConfirmShow] = useState(false);
-  const [err, seterr] = useState(null);
-  const navigate = useNavigate();
 
   const [inputs, setInputs] = useState({
     username: "",
-    email: "",
+    number: "",
     password: "",
     name: "",
     slug: "",
@@ -44,15 +49,63 @@ const Register = () => {
     }));
   };
 
-  const handleClick = async (e) => {
-    e.preventDefault();
+  const mutation = useMutation({
+    mutationKey: ["RegisterUser"],
+    mutationFn: async (newData) => {
+      // Return axios post request to handle the response in onSuccess
+      return await makeRequest.post("/auth/register", newData);
+    },
+    onSuccess: (response) => {
+      // Show the success message from the server response
+      toast.success(response.data || "Registration Successful!");
+      regForm.classList.add("hidden");
+      successForm.classList.remove("hidden");
+      queryClient.invalidateQueries("userList");
+    },
+    onError: (err) => {
+      // Handle and display error messages from the server
+      const errorMessage = err.response?.data || "Registration Failed!";
+      toast.error(errorMessage);
+    },
+  });
 
-    try {
-      await makeRequest.post("/auth/register", inputs);
-      navigate(`/login`);
-    } catch (err) {
-      seterr(err);
+  const handleClick = (e) => {
+    e.preventDefault();
+    const { name, number, username, password, slug } = inputs;
+
+    // Validate each field separately and show specific error messages
+    if (!name) {
+      toast.error("Name is required!");
+      return;
     }
+
+    if (!number) {
+      toast.error("number is required!");
+      return;
+    }
+
+    if (number.length !== 10) {
+      toast.error("number nust have 10 numbers!");
+      return;
+    }
+
+    if (!username) {
+      toast.error("Username is required!");
+      return;
+    }
+
+    if (!password) {
+      toast.error("Password is required!");
+      return;
+    }
+
+    if (!slug) {
+      toast.error("Slug is required!");
+      return;
+    }
+
+    // If all fields are valid, trigger the mutation
+    mutation.mutate(inputs);
   };
 
   return (
@@ -93,67 +146,70 @@ const Register = () => {
 
         {/* right */}
         <div className="flex flex-1 flex-col justify-center gap-5 bg-white p-6">
-          <h3 className="text-3xl font-medium text-blue-900 md:text-4xl">
-            Register
-          </h3>
-          <form className="flex flex-col gap-3 md:gap-8">
-            <input
-              type="text"
-              placeholder="name"
-              className="border-b border-blue-200 px-4 py-2 outline-none focus:border-blue-600 md:py-3"
-              name="name"
-              onChange={handleInput}
-            />
-            <input
-              type="email"
-              placeholder="email"
-              className="border-b border-blue-200 px-4 py-2 outline-none focus:border-blue-600 md:py-3"
-              name="email"
-              onChange={handleInput}
-            />
-            <input
-              type="text"
-              placeholder="username"
-              className="border-b border-blue-200 px-4 py-2 outline-none focus:border-blue-600 md:py-3"
-              name="username"
-              onChange={handleInput}
-              maxLength={15}
-            />
-            <div className="relative flex items-center justify-between">
+          <div id="regForm" className="space-y-3 ">
+            <h3 className="text-3xl font-medium text-blue-900 md:text-4xl">
+              Register
+            </h3>
+            <form className="flex flex-col gap-3 md:gap-8">
               <input
-                type={isShow ? "text" : "password"}
-                placeholder="password"
-                className="w-full border-b border-blue-200 px-4 py-2 outline-none focus:border-blue-600 md:py-3"
-                name="password"
+                type="text"
+                placeholder="name"
+                className="border-b border-blue-200 px-4 py-2 outline-none focus:border-blue-600 md:py-3"
+                name="name"
                 onChange={handleInput}
+                maxLength={100}
               />
-              <div
-                className="absolute right-0 cursor-pointer rounded-full px-1"
-                onClick={() => setisShow(!isShow)}
-              >
-                {isShow ? <LuEyeOff /> : <LuEye />}
+              <input
+                type="text"
+                placeholder="078xxxXXXX"
+                className="border-b border-blue-200 px-4 py-2 outline-none focus:border-blue-600 md:py-3"
+                name="number"
+                onChange={handleInput}
+                maxLength={10}
+              />
+              <input
+                type="text"
+                placeholder="username"
+                className="border-b border-blue-200 px-4 py-2 outline-none focus:border-blue-600 md:py-3"
+                name="username"
+                onChange={handleInput}
+                maxLength={15}
+              />
+              <div className="relative flex items-center justify-between">
+                <input
+                  type={isShow ? "text" : "password"}
+                  placeholder="password"
+                  className="w-full border-b border-blue-200 px-4 py-2 outline-none focus:border-blue-600 md:py-3"
+                  name="password"
+                  onChange={handleInput}
+                  maxLength={10}
+                />
+                <div
+                  className="absolute right-0 cursor-pointer rounded-full px-1"
+                  onClick={() => setisShow(!isShow)}
+                >
+                  {isShow ? <LuEyeOff /> : <LuEye />}
+                </div>
+              </div>
+            </form>
+            <br />
+            <div onClick={handleClick} className="">
+              <RegularBtn label={"Let's Start"} fill={1} />
+            </div>
+          </div>
+          <div className="hidden" id="successReg">
+            <div className="flex-col flex items-center justify-center ">
+              <img src={sucess} alt="" />
+              <div>
+                <Link to="/login">
+                  <RegularBtn label={"Back To Login"} fill={1} />
+                </Link>
               </div>
             </div>
-            {/* <div className="relative flex items-center justify-between">
-              <input
-                type={isConfirmShow ? "text" : "password"}
-                placeholder="confirm password"
-                className="w-full border-b border-blue-200 px-4 py-2 outline-none focus:border-blue-600 md:py-3"
-              />
-              <div
-                className="absolute right-0 cursor-pointer rounded-full px-1"
-                onClick={() => setisConfirmShow(!isConfirmShow)}
-              >
-                {isConfirmShow ? <LuEyeOff /> : <LuEye />}
-              </div>
-            </div> */}
-          </form>
-          {err && err}
-          <div onClick={handleClick}>
-            <RegularBtn label={"Let's Start"} fill={1} />
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

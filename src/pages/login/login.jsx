@@ -5,6 +5,8 @@ import RegularBtn from "../../components/RegularBtn";
 import { LuEye } from "react-icons/lu";
 import { LuEyeOff } from "react-icons/lu";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../context/authContext";
 
 const login = () => {
@@ -23,6 +25,19 @@ const login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    const { username, password } = inputs;
+
+    if (!username) {
+      toast.error("Username Cannot be Empty");
+      return;
+    }
+
+    if (!password) {
+      toast.error("Password Cannot Be Empty");
+      return;
+    }
+
     try {
       await userlogin(inputs);
       navigate("/");
@@ -103,6 +118,7 @@ const login = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

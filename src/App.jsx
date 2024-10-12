@@ -22,6 +22,7 @@ import { AuthContext } from "./context/authContext";
 import Profile from "./pages/Profile/Profile";
 import Feed from "./pages/Feed/Feed";
 import About from "./pages/About/About";
+import Authors from "./pages/Profile/Authors";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -30,21 +31,19 @@ function App() {
 
   const Layout = () => {
     return (
-      <QueryClientProvider client={queryClient}>
-        <div className=" bg-[#f6f3f3] antialiased dark:bg-[#333]">
-          <Background />
-          <Navbar />
-          <div className="mx-2">
-            <div className="mx-auto max-w-7xl">
-              <div className="flex gap-2">
-                <Sidebar />
-                <Outlet />
-              </div>
+      <div className=" bg-[#f6f3f3] antialiased dark:bg-[#333]">
+        <Background />
+        <Navbar />
+        <div className="mx-2">
+          <div className="mx-auto max-w-7xl">
+            <div className="flex gap-2">
+              <Sidebar />
+              <Outlet />
             </div>
           </div>
-          <Footer />
         </div>
-      </QueryClientProvider>
+        <Footer />
+      </div>
     );
   };
 
@@ -81,16 +80,16 @@ function App() {
           element: <About />,
         },
         {
+          path: "/authors",
+          element: <Authors />,
+        },
+        {
           path: "/blog/:blogSulg",
           element: <Blog />,
         },
         {
           path: "/profile/:userSulg",
-          element: (
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          ),
+          element: <Profile />,
         },
         {
           path: "/write",
@@ -114,7 +113,9 @@ function App() {
 
   return (
     <div className="">
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </div>
   );
 }

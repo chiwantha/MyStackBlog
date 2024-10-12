@@ -68,7 +68,7 @@ const Read = ({ blog }) => {
 
             <div className="flex flex-col">
               <h5>
-                <Link to={`/profile/${blog.authorId}`}>
+                <Link to={`/profile/${blog.authorSlug}`}>
                   <span className="font-bold uppercase hover:scale-105 hover:underline text-orange-400">
                     {blog.authorName}
                   </span>

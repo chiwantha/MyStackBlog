@@ -79,7 +79,7 @@ const About = () => {
         ))}
       </div>
 
-      <section className="border-slate-600/50 bg-slate-800 py-5 rounded-xl px-3 space-y-3">
+      <section className="border-slate-600/50 bg-slate-800 py-5 rounded-xl px-3 space-y-3 shadow-lg">
         <h1 className="text-3xl text-orange-500 font-bold">DEVELOPER DNA</h1>
         <hr className="border-neutral-700 pb-2" />
         <div className="grid sm:grid-cols-2 gap-5">
@@ -90,16 +90,14 @@ const About = () => {
                 &nbsp;&nbsp;<span className="text-purple-500">name</span>:{" "}
                 <span className="text-green-500">"Kasun Chiwantha"</span>,{"\n"}
                 &nbsp;&nbsp;<span className="text-purple-500">title</span>:{" "}
-                <span className="text-green-500">
-                  "Full-Stack Developer & CEO"
-                </span>
-                ,{"\n"}
+                <span className="text-green-500">"Full-Stack Developer"</span>,
+                {"\n"}
                 &nbsp;&nbsp;<span className="text-purple-500">company</span>:
                 &#123; {"\n"}
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <span className="text-purple-500">name</span>:{" "}
                 <span className="text-green-500">
-                  "K-Chord Solutions (PVT) LTD"
+                  "K-Chord Solutions (PVT)LTD"
                 </span>
                 ,{"\n"}
                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -120,9 +118,7 @@ const About = () => {
                 {"\n"}
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <span className="text-purple-500">linkedin</span>:{" "}
-                <span className="text-green-500">
-                  "linkedin.com/in/kasun-chiwantha"
-                </span>
+                <span className="text-green-500">"linkedin.com/chiwantha"</span>
                 , {"\n"}
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <span className="text-purple-500">portfolio</span>:{" "}
@@ -150,7 +146,7 @@ const About = () => {
         </div>
       </section>
 
-      <section className="py-5 rounded-xl px-3 border bg-slate-200 border-slate-300/50 dark:border-slate-600/50 dark:bg-slate-800 space-y-3">
+      <section className="py-5 rounded-xl px-3 border bg-slate-50 border-slate-300/50 dark:border-slate-600/50 dark:bg-slate-800 space-y-3 shadow-lg">
         <h1 className="text-3xl text-orange-500 font-bold">TECHNOLOGIES</h1>
         <hr className="border-neutral-700 pb-2" />
         <p className="text-slate-600 dark:text-slate-200">

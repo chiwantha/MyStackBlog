@@ -1,15 +1,11 @@
-import Friends from "../assets/leftbar/1.png";
-import Groups from "../assets/leftbar/2.png";
-import Market from "../assets/leftbar/3.png";
-import Watch from "../assets/leftbar/4.png";
-import Events from "../assets/leftbar/6.png";
-import Gaming from "../assets/leftbar/7.png";
-import Gallery from "../assets/leftbar/8.png";
-import Videos from "../assets/leftbar/9.png";
-import Messages from "../assets/leftbar/10.png";
-import Tutorials from "../assets/leftbar/11.png";
-// import Courses from "../assets/leftbar/12.png";
-import Fund from "../assets/leftbar/13.png";
+import profile from "../assets/leftbar/profile.png";
+import write from "../assets/leftbar/write.png";
+import feed from "../assets/leftbar/feed.png";
+import author from "../assets/leftbar/author.png";
+import gallery from "../assets/leftbar/gallery.png";
+import about from "../assets/leftbar/about.png";
+import how from "../assets/leftbar/how.png";
+import chat from "../assets/leftbar/chat.png";
 import { Link } from "react-router-dom";
 import { useContext, useMemo } from "react";
 import { AuthContext } from "../context/authContext";
@@ -26,64 +22,51 @@ const Sidebar = () => {
     },
     {
       item: "Profile",
-      icon: Friends,
+      icon: profile,
       path: currentUser ? `/profile/${currentUser.slug}` : "/login",
     },
     {
       item: "Write",
-      icon: Groups,
+      icon: write,
       path: "/write",
     },
-    {
-      item: "Settings",
-      icon: Market,
-      path: "/userSettings",
-    },
-    {
-      item: "Dashboard",
-      icon: Watch,
-      path: "/userDashboard",
-    },
-    {
-      item: "Author-Box",
-      icon: Messages,
-      path: "/authorbox",
-    },
+
     {
       separator: "Common Links",
     },
     {
       item: "Feed",
-      icon: Events,
+      icon: feed,
       path: "/feed",
     },
     {
       item: "Authors",
-      icon: Gaming,
+      icon: author,
       path: "/authors",
     },
     {
-      item: "Support",
-      icon: Gallery,
-      path: "/contact",
+      item: "Gallery",
+      icon: gallery,
+      path: "/gallery",
     },
-    {
-      item: "AboutUs",
-      icon: Videos,
-      path: "/aboutus",
-    },
+
     {
       separator: "Other",
     },
     {
+      item: "AboutUs",
+      icon: about,
+      path: "/aboutus",
+    },
+    {
       item: "How It Works",
-      icon: Tutorials,
+      icon: how,
       path: "howtouse",
     },
     {
-      item: "Donate",
-      icon: Fund,
-      path: "/donate",
+      item: "Tell Us",
+      icon: chat,
+      path: "/send",
     },
   ]);
   return (
@@ -107,7 +90,11 @@ const Sidebar = () => {
               <div key={index}>
                 <Link to={item.path}>
                   <div className="flex items-center gap-4 hover:font-bold dark:text-white">
-                    <img src={item.icon} alt="menuIco" />
+                    <img
+                      src={item.icon}
+                      alt="menuIco"
+                      className="w-[40px] aspect-square rounded-full"
+                    />
                     <span className="text-[15px]">{item.item}</span>
                   </div>
                 </Link>
