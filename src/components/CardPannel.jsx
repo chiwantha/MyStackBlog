@@ -1,5 +1,6 @@
 import StackButton from "./StackButton";
 import BlogCard from "./BlogCard";
+import Loading from "./Loading";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -38,14 +39,7 @@ const CardPannel = ({ from, to, title, btntext, link, btn, cat }) => {
       {error ? (
         `something went wrong : ${error}`
       ) : isLoading ? (
-        <div className="w-full flex justify-center bg-transparent">
-          <img
-            src={
-              "https://tamilnaducouncil.ac.in/wp-content/uploads/2018/10/loading-gif.gif"
-            }
-            alt="Loading..."
-          />
-        </div>
+        <Loading />
       ) : (
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
           {data &&

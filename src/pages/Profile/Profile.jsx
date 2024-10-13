@@ -5,6 +5,7 @@ import BlogList from "../../components/BlogList";
 import { motion } from "framer-motion";
 import ProfileCard from "../../components/ProfileCard";
 import StackButton from "../../components/StackButton";
+import Loading from "../../components/Loading";
 
 const Profile = () => {
   const scrollToTop = async () => {
@@ -16,7 +17,7 @@ const Profile = () => {
   scrollToTop();
   const slug = useLocation().pathname.split("/")[2];
 
-  const { data, isSuccess } = useQuery({
+  const { data, isSuccess, isLoading } = useQuery({
     queryKey: ["userProfile", slug],
     queryFn: async () => {
       const res = await makeRequest.get(`/user/profile?slug=${slug}`);
@@ -27,7 +28,9 @@ const Profile = () => {
 
   return (
     <div className="my-3 space-y-3" style={{ flex: 4 }}>
-      {isSuccess ? (
+      {isLoading ? (
+        <Loading />
+      ) : isSuccess ? (
         data && (
           <>
             <ProfileCard data={data[0]} />

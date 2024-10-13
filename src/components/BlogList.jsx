@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import BlogCard from "./BlogCard";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../axios";
+import Loading from "./Loading";
 
 const BlogList = ({ userId = "" }) => {
   const scrollToTop = async () => {
@@ -101,14 +102,7 @@ const BlogList = ({ userId = "" }) => {
       {error ? (
         `Something went wrong: ${error}`
       ) : isLoading ? (
-        <div className="w-full flex justify-center bg-transparent">
-          <img
-            src={
-              "https://tamilnaducouncil.ac.in/wp-content/uploads/2018/10/loading-gif.gif"
-            }
-            alt="Loading..."
-          />
-        </div>
+        <Loading />
       ) : (
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
           {currentCards.length > 0 ? (

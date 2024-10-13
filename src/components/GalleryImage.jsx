@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
-const GalleryImage = ({ data }) => {
+const GalleryImage = ({ data, onClick }) => {
   return (
-    <div>
-      <div className="bg-black rounded-xl shadow-md">
+    <div onClick={onClick} className="cursor-pointer">
+      <div className="w-full h-full bg-black hover:scale-110 hover:shadow-2xl transition-transform">
         <img
           src={`/upload/${data.img}`}
           alt="Image"
-          className="object-cover flex bg-white w-full"
+          className="object-cover w-full h-full object-center"
         />
       </div>
     </div>

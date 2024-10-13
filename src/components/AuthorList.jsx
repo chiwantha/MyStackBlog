@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../axios";
 import ProfileCard from "./ProfileCard";
+import Loading from "./Loading";
 
 const AuthorList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -94,12 +95,7 @@ const AuthorList = () => {
       {error ? (
         <p className="text-red-500">Something went wrong: {error.message}</p>
       ) : isLoading ? (
-        <div className="w-full flex justify-center">
-          <img
-            src="https://tamilnaducouncil.ac.in/wp-content/uploads/2018/10/loading-gif.gif"
-            alt="Loading..."
-          />
-        </div>
+        <Loading />
       ) : (
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           {currentCards.length > 0 ? (

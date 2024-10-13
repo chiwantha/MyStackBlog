@@ -6,6 +6,13 @@ import kchord from "../../assets/images/kchord.png";
 import devsl from "../../assets/images/devsl.png";
 
 const About = () => {
+  const scrollToTop = async () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // For smooth scrolling
+    });
+  };
+  scrollToTop();
   return (
     <div className="my-3 space-y-3" style={{ flex: 4 }}>
       <section className="rounded-xl shadow-lg py-5 px-3 border bg-slate-50 border-slate-300/50 dark:border-slate-600/50 dark:bg-slate-800 space-y-3">

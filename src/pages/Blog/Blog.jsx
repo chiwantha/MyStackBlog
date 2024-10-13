@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import CardPannel from "../../components/CardPannel";
 import { motion } from "framer-motion";
+import Loading from "../../components/Loading";
 
 const Blog = () => {
   const scrollToTop = async () => {
@@ -41,14 +42,7 @@ const Blog = () => {
       {error ? (
         "Error : " + error
       ) : isLoading ? (
-        <div className="w-full flex justify-center bg-transparent">
-          <img
-            src={
-              "https://tamilnaducouncil.ac.in/wp-content/uploads/2018/10/loading-gif.gif"
-            }
-            alt="Loading..."
-          />
-        </div>
+        <Loading />
       ) : (
         data && (
           <motion.div

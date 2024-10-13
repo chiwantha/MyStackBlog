@@ -2,6 +2,7 @@ import { SiMysql } from "react-icons/si";
 import { SiExpress } from "react-icons/si";
 import { FaReact } from "react-icons/fa";
 import { FaNode } from "react-icons/fa";
+import { FaSmile } from "react-icons/fa";
 
 const WelcomeMessage = () => (
   <p className="text-justify text-neutral-600 dark:text-neutral-300">
@@ -41,10 +42,10 @@ const WelcomeBanner = () => {
           <div className="flex items-center justify-between">
             <h1 className="text-4xl font-bold text-blue-500">WELCOME</h1>
             <button
-              className="cursor-pointer select-none rounded-full bg-red-500 px-3 py-1 text-white hover:bg-red-400"
+              className="cursor-pointer select-none rounded-full bg-black text-3xl text-yellow-300 hover:text-yellow-200"
               aria-label="Close"
             >
-              X
+              <FaSmile />
             </button>
           </div>
           <WelcomeMessage />

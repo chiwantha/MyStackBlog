@@ -56,7 +56,7 @@ const Sidebar = () => {
     {
       item: "AboutUs",
       icon: about,
-      path: "/aboutus",
+      path: "/about",
     },
     {
       item: "How It Works",
