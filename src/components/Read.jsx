@@ -116,7 +116,7 @@ const Read = ({ blog }) => {
         </div>
 
         <div className="flex items-center rounded-xl bg-slate-200 p-2 dark:bg-slate-400/40">
-          <Comment />
+          <Comment blogId={blog.id} />
         </div>
       </div>
     </div>

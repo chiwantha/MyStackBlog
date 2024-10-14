@@ -22,16 +22,15 @@ const GalleryComp = () => {
   });
 
   // Filter images based on search query
-  const filteredImages =
-    data?.filter((image) => {
-      const searchTerm = searchQuery.toLowerCase();
-      return (
-        image.title?.toLowerCase().includes(searchTerm) ||
-        image.category?.toLowerCase().includes(searchTerm) ||
-        image.intro?.toLowerCase().includes(searchTerm) ||
-        image.authorName?.toLowerCase().includes(searchTerm)
-      );
-    }) || [];
+  const filteredImages = (data || []).filter((image) => {
+    const searchTerm = searchQuery.toLowerCase();
+    return (
+      image.title?.toLowerCase().includes(searchTerm) ||
+      image.category?.toLowerCase().includes(searchTerm) ||
+      image.intro?.toLowerCase().includes(searchTerm) ||
+      image.authorName?.toLowerCase().includes(searchTerm)
+    );
+  });
 
   // Calculate total pages and slice data for the current page
   const totalPages = Math.ceil(filteredImages.length / imagesPerPage);

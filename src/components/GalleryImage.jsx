@@ -7,6 +7,7 @@ const GalleryImage = ({ data, onClick }) => {
           src={`/upload/${data.img}`}
           alt="Image"
           className="object-cover w-full h-full object-center"
+          loading="lazy"
         />
       </div>
     </div>

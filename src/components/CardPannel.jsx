@@ -20,8 +20,6 @@ const CardPannel = ({ from, to, title, btntext, link, btn, cat }) => {
     },
   });
 
-  // console.log(data && data);
-
   return (
     <div className="space-y-3 ">
       <div className="flex items-center justify-between">

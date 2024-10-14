@@ -21,6 +21,7 @@ import { CgProfile } from "react-icons/cg";
 import { TfiWrite } from "react-icons/tfi";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaWindowClose } from "react-icons/fa";
+import { IoIosImages } from "react-icons/io";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -191,9 +192,16 @@ const Navbar = () => {
                   { text: <IoHomeOutline />, path: "/home" },
                   { text: <MdDynamicFeed />, path: "/feed" },
                   { text: <FaInfo />, path: "/about" },
-                  { text: <CgProfile />, path: "/profile" },
-                  { text: <TfiWrite />, path: "/write" },
+                  {
+                    text: <CgProfile />,
+                    path: `${currentUser ? `profile/${currentUser.slug}` : `/login`}`,
+                  },
+                  {
+                    text: <TfiWrite />,
+                    path: `${currentUser ? `/write` : `/login`}`,
+                  },
                   { text: <FaPhoneAlt />, path: "/about" },
+                  { text: <IoIosImages />, path: "/gallery" },
                 ].map((link, index) => (
                   <Link key={index} to={link.path}>
                     <motion.div

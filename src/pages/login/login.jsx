@@ -108,13 +108,21 @@ const login = () => {
             </div>
           </form>
           {err && err}
-          <div className="flex gap-3 flex-wrap">
-            <div className="" onClick={handleLogin}>
-              <RegularBtn label={"LogIn"} fill={1} />
+          <div className="flex gap-3  flex-col flex-wrap">
+            <div className="flex gap-3 flex-wrap">
+              <div className="" onClick={handleLogin}>
+                <RegularBtn label={"LogIn"} fill={1} />
+              </div>
+              <Link to="/home">
+                <RegularBtn label={"Back to home"} />
+              </Link>
             </div>
-            <Link to="/home">
-              <RegularBtn label={"Back to home"} />
-            </Link>
+            <span>
+              Fogot Password ?{" "}
+              <Link to={"/reset"}>
+                <span className="text-blue-500 font-bold">Yes, I Fogot !</span>
+              </Link>
+            </span>
           </div>
         </div>
       </div>

@@ -24,6 +24,7 @@ import Feed from "./pages/Feed/Feed";
 import About from "./pages/About/About";
 import Authors from "./pages/Profile/Authors";
 import Gallery from "./pages/Gallery/Gallery";
+import RstPass from "./pages/login/RstPass";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -113,6 +114,10 @@ function App() {
     {
       path: "/register",
       element: <Register />,
+    },
+    {
+      path: "/reset",
+      element: <RstPass />,
     },
   ]);
 

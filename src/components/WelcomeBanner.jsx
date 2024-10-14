@@ -1,7 +1,7 @@
-import { SiMysql } from "react-icons/si";
-import { SiExpress } from "react-icons/si";
-import { FaReact } from "react-icons/fa";
-import { FaNode } from "react-icons/fa";
+import unity from "../assets/images/unity.png";
+import tech from "../assets/images/tech.png";
+import travel from "../assets/images/travel.png";
+import read from "../assets/images/read.png";
 import { FaSmile } from "react-icons/fa";
 
 const WelcomeMessage = () => (
@@ -17,19 +17,19 @@ const WelcomeMessage = () => (
 // eslint-disable-next-line react/jsx-key
 const ICONS = [
   {
-    icon: <SiMysql />,
+    icon: tech,
     color: "text-yellow-500",
   },
   {
-    icon: <SiExpress />,
+    icon: unity,
     color: "text-black dark:text-white",
   },
   {
-    icon: <FaReact />,
+    icon: travel,
     color: "text-blue-500",
   },
   {
-    icon: <FaNode />,
+    icon: read,
     color: "text-green-600",
   },
 ];
@@ -57,7 +57,7 @@ const WelcomeBanner = () => {
                 key={index}
                 className={`flex aspect-square items-center justify-center rounded-lg bg-white/20 ${icon.color ? icon.color : "text-black"} shadow-lg`}
               >
-                {icon.icon}
+                <img src={icon.icon} alt="" />
               </div>
             ))}
           </div>
