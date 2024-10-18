@@ -9,10 +9,10 @@ import { MdDelete } from "react-icons/md";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../axios";
 import { ToastContainer, toast } from "react-toastify";
+import ProfileDefault from "../assets/images/defaultprofile.png";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "./Loading";
 import moment from "moment";
-import { Spinner } from "flowbite-react";
 
 const Comment = ({ blogId }) => {
   const queryClient = useQueryClient();
@@ -121,7 +121,11 @@ const Comment = ({ blogId }) => {
             {currentUser ? (
               <div className="flex flex-col sm:flex-row gap-2 mb-2">
                 <img
-                  src={currentUser.image}
+                  src={
+                    currentUser.image
+                      ? `/upload/profile/${currentUser.image}`
+                      : ProfileDefault
+                  }
                   alt="profile"
                   className="h-[35px] w-[35px] rounded-full border-dashed border-orange-400 object-cover object-center hover:border-2"
                 />
@@ -158,7 +162,11 @@ const Comment = ({ blogId }) => {
                   key={comment.id}
                 >
                   <img
-                    src={comment.authorImg}
+                    src={
+                      comment.authorImg
+                        ? `/upload/profile/${comment.authorImg}`
+                        : ProfileDefault
+                    }
                     alt="comment-author"
                     className="h-[35px] w-[35px] rounded-full border-dashed border-orange-400 object-cover object-center hover:border-2"
                   />

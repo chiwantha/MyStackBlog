@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import BlogDefault from "../assets/blog/1.jpg";
-import { FaUser } from "react-icons/fa";
+import ProfileDefault from "../assets/images/defaultprofile.png";
 
 const BlogCard = ({ blog }) => {
   const truncateIntro = (text, maxChars) => {
@@ -29,7 +29,7 @@ const BlogCard = ({ blog }) => {
     <div className="flex select-none flex-col rounded-xl bg-white shadow-lg">
       <div className="rounded-lg bg-black">
         <img
-          src={blog.img ? `/upload/${blog.img}` : BlogDefault}
+          src={blog.img ? `/upload/blog/${blog.img}` : BlogDefault}
           alt={blog.title}
           className="h-[200px] w-full rounded-lg object-cover object-top"
           loading="lazy"
@@ -50,16 +50,15 @@ const BlogCard = ({ blog }) => {
         </p>
       </Link>
       <div className="flex items-center justify-center gap-3 px-4 pb-3">
-        {blog.authorImg ? (
-          <img
-            src={blog.authorImg}
-            className=" rounded-full w-[50px] h-[50px]"
-          ></img>
-        ) : (
-          <div className="flex items-center justify-center rounded-full bg-orange-500  w-[50px] h-[50px] text-2xl text-white">
-            <FaUser />
-          </div>
-        )}
+        <img
+          src={
+            blog.authorImg
+              ? `/upload/profile/${blog.authorImg}`
+              : ProfileDefault
+          }
+          className=" rounded-full w-[50px] h-[50px] object-cover"
+        ></img>
+
         <div className="flex flex-col justify-start">
           <h3 className="text-lg font-bold text-orange-500 hover:underline">
             <Link to={`/profile/${blog.authorSlug}`}>

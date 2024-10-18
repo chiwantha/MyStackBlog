@@ -67,7 +67,7 @@ const BlogEditor = () => {
     try {
       const formdata = new FormData();
       formdata.append("file", file);
-      const res = await makeRequest.post("/upload/image", formdata);
+      const res = await makeRequest.post("/upload/Blogimage", formdata);
       return res.data;
     } catch (err) {
       console.log(err);

@@ -52,7 +52,7 @@ const Modal = ({ data, currentIndex, onClose, onNext, onPrev }) => {
                 &#10094; {/* Previous Arrow */}
               </button>
               <img
-                src={`/upload/${currentImage.img}`}
+                src={`/upload/blog/${currentImage.img}`}
                 alt="Enlarged"
                 className=" w-[900px] h-auto object-cover rounded-xl" // Set max-width to control size
                 loading="lazy" // Lazy load the image
@@ -83,7 +83,7 @@ const Modal = ({ data, currentIndex, onClose, onNext, onPrev }) => {
                 </Link>
               </div>
               <a
-                href={`/upload/${currentImage.img}`}
+                href={`/upload/blog/${currentImage.img}`}
                 download
                 className="flex items-center justify-center px-4 text-white aspect-square bg-orange-600 rounded-lg hover:bg-orange-700 "
               >

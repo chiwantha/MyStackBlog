@@ -3,6 +3,8 @@ import { useState } from "react";
 import { FaHeart, FaShareAlt, FaUser } from "react-icons/fa";
 import BlogImg from "../assets/blog/2.png";
 import { Link } from "react-router-dom";
+import ProfileDefault from "../assets/images/defaultprofile.png";
+
 import DOMPurify from "dompurify";
 import Comment from "./Comment";
 
@@ -56,7 +58,11 @@ const Read = ({ blog }) => {
           <div className="flex items-center pt-1 gap-2">
             {blog.authorImg ? (
               <img
-                src={blog.authorImg}
+                src={
+                  blog.authorImg
+                    ? `/upload/profile/${blog.authorImg}`
+                    : ProfileDefault
+                }
                 alt="UserImage"
                 className="h-[50px] w-[50px] rounded-full border-orange-400 object-cover object-center border-2"
               />
@@ -87,7 +93,7 @@ const Read = ({ blog }) => {
          dark:border-slate-500  px-2 pt-2 pb-4"
         >
           <img
-            src={blog.img ? `/upload/${blog.img}` : BlogImg}
+            src={blog.img ? `/upload/blog/${blog.img}` : BlogImg}
             alt="blog image"
             className="rounded-lg w-full"
           />

@@ -4,7 +4,7 @@ const GalleryImage = ({ data, onClick }) => {
     <div onClick={onClick} className="cursor-pointer">
       <div className="w-full h-full bg-black hover:scale-110 hover:shadow-2xl transition-transform">
         <img
-          src={`/upload/${data.img}`}
+          src={`/upload/blog/${data.img}`}
           alt="Image"
           className="object-cover w-full h-full object-center"
           loading="lazy"

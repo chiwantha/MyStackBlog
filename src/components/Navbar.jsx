@@ -12,6 +12,7 @@ import { DarkModeContext } from "../context/darkModeContext";
 
 import StackButton from "./StackButton";
 import { AuthContext } from "../context/authContext";
+import ProfileDefault from "../assets/images/defaultprofile.png";
 // import menu from "../assets/menu/menu.png";
 
 import { IoHomeOutline } from "react-icons/io5";
@@ -78,7 +79,11 @@ const Navbar = () => {
                   <Link to={`/profile/${currentUser.slug}`}>
                     {currentUser.image ? (
                       <img
-                        src={currentUser.image}
+                        src={
+                          currentUser.image
+                            ? `/upload/profile/${currentUser.image}`
+                            : ProfileDefault
+                        }
                         alt="UserImage"
                         className="h-[35px] w-[35px] rounded-full border-dashed border-orange-400 object-cover object-center hover:border-2"
                       />
