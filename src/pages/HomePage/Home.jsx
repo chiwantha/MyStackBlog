@@ -14,7 +14,7 @@ const Home = () => {
       <WelcomeBanner />
       <CardPannel title={"Latest Blogs"} from={0} to={3} />
       <Categories />
-      <CardPannel from={3} to={7} />
+      <CardPannel title={"Popular Blogs"} from={3} to={7} />
     </div>
   );
 };
