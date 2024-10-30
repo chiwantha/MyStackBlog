@@ -1,12 +1,12 @@
 import logo from "../assets/logo/mystacklogo.png";
-
+import { useSidebar } from "../Context/SidebarContext";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import { IoMenu } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
-
-import { useContext, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { FaUser } from "react-icons/fa";
+import { useContext } from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../context/darkModeContext";
 
@@ -15,23 +15,14 @@ import { AuthContext } from "../context/authContext";
 import ProfileDefault from "../assets/images/defaultprofile.png";
 // import menu from "../assets/menu/menu.png";
 
-import { IoHomeOutline } from "react-icons/io5";
-import { MdDynamicFeed } from "react-icons/md";
-import { FaInfo, FaUser } from "react-icons/fa";
-import { CgProfile } from "react-icons/cg";
-import { TfiWrite } from "react-icons/tfi";
-import { FaPhoneAlt } from "react-icons/fa";
-import { FaWindowClose } from "react-icons/fa";
-import { IoIosImages } from "react-icons/io";
-
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { toggleSidebar, isSidebarOpen } = useSidebar();
   const { darkMode, toggle } = useContext(DarkModeContext);
   const { currentUser } = useContext(AuthContext);
 
   return (
     <nav
-      className={`left-0 ${isOpen ? `sticky` : `relative`} right-0 top-0 z-50 bg-white backdrop-blur-xl dark:bg-[#222] md:sticky`}
+      className={`left-0 ${isSidebarOpen && `sticky`} right-0 top-0 z-50 bg-white backdrop-blur-xl dark:bg-[#222] md:sticky`}
     >
       {/* top nav bar */}
       <div className="mx-2 overflow-x-hidden overflow-y-hidden">
@@ -70,7 +61,7 @@ const Navbar = () => {
               </ul>
               <div
                 onClick={toggle}
-                className="flex h-[35px] w-[35px] items-center justify-center rounded-full text-black dark:text-white"
+                className=" h-[35px] w-[35px] items-center justify-center hidden lg:flex rounded-full text-black dark:text-white"
               >
                 {darkMode ? <DarkModeOutlinedIcon /> : <WbSunnyOutlinedIcon />}
               </div>
@@ -115,18 +106,13 @@ const Navbar = () => {
                 damping: 10,
                 duration: 0.2,
               }}
-              className="flex items-center gap-4 md:hidden"
+              className="flex items-center gap-4 lg:hidden"
             >
               <div className="text-black dark:text-white" onClick={toggle}>
                 {darkMode ? <DarkModeOutlinedIcon /> : <WbSunnyOutlinedIcon />}
               </div>
-              <div
-                className="text-4xl text-green-500"
-                onClick={() => {
-                  setIsOpen(!isOpen);
-                }}
-              >
-                {isOpen ? <IoClose /> : <IoMenu />}
+              <div className="text-4xl text-green-500" onClick={toggleSidebar}>
+                {isSidebarOpen ? <IoClose /> : <IoMenu />}
               </div>
             </motion.div>
           </div>
@@ -163,70 +149,6 @@ const Navbar = () => {
           </div>
         </div>
       </motion.div>
-
-      {/* mobile navigatoin menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <div className="z-50">
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "100vh" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{
-                opacity: { duration: 0.6 },
-                height: { duration: 0.4 },
-              }} // Separate transitions for opacity and height
-              onClick={() => setIsOpen(!isOpen)} // Ensure consistent naming
-              className="fixed top-0 inset-0 flex flex-col pt-24 justify-start items-center space-y-2 md:hidden"
-              style={{
-                background: `linear-gradient(rgba(238, 90, 36, 0.9) , rgba(39,11,96,0.9)),url(https://www.shutterstock.com/image-vector/vector-seamless-pattern-blogging-social-600nw-434264536.jpg)`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            >
-              <div className="grid grid-cols-3 gap-2">
-                <div
-                  onClick={() => setIsOpen(!isOpen)}
-                  className="cursor-pointer aspect-square flex items-center justify-center
-                       border-green-400 border text-white w-[90px]  select-none rounded-lg
-                       text-3xl"
-                >
-                  <FaWindowClose />
-                </div>
-                {[
-                  { text: <IoHomeOutline />, path: "/home" },
-                  { text: <MdDynamicFeed />, path: "/feed" },
-                  { text: <FaInfo />, path: "/about" },
-                  {
-                    text: <CgProfile />,
-                    path: `${currentUser ? `profile/${currentUser.slug}` : `/login`}`,
-                  },
-                  {
-                    text: <TfiWrite />,
-                    path: `${currentUser ? `/write` : `/login`}`,
-                  },
-                  { text: <FaPhoneAlt />, path: "/about" },
-                  { text: <IoIosImages />, path: "/gallery" },
-                ].map((link, index) => (
-                  <Link key={index} to={link.path}>
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.6, delay: 0.2 * index }}
-                      className="cursor-pointer aspect-square flex items-center justify-center
-                       border-green-400 border text-white w-[90px]  select-none rounded-lg
-                       text-3xl"
-                    >
-                      {link.text}
-                    </motion.div>
-                  </Link>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </nav>
   );
 };

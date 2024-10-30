@@ -25,6 +25,7 @@ import About from "./pages/About/About";
 import Authors from "./pages/Profile/Authors";
 import Gallery from "./pages/Gallery/Gallery";
 import RstPass from "./pages/login/RstPass";
+import { SidebarProvider } from "./context/SidebarContext";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -124,7 +125,9 @@ function App() {
   return (
     <div className="">
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+        <SidebarProvider>
+          <RouterProvider router={router} />
+        </SidebarProvider>
       </QueryClientProvider>
     </div>
   );

@@ -10,7 +10,7 @@ const GalleryComp = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
-  const imagesPerPage = 16; // Adjust based on your grid layout
+  const imagesPerPage = 15; // Adjust based on your grid layout
 
   // Fetch data using React Query
   const { data, isLoading } = useQuery({

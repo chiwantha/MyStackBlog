@@ -2,31 +2,24 @@
 import { Link } from "react-router-dom";
 import BlogDefault from "../assets/blog/1.jpg";
 import ProfileDefault from "../assets/images/defaultprofile.png";
+import StackColors from "../constants/colors";
+import { useContext } from "react";
+import { AuthContext } from "../context/authContext";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 const BlogCard = ({ blog }) => {
+  const { currentUser } = useContext(AuthContext);
+
   const truncateIntro = (text, maxChars) => {
     return text.length > maxChars ? `${text.slice(0, maxChars)}...` : text;
   };
 
-  const colors = [
-    "bg-red-300",
-    "bg-blue-300",
-    "bg-green-300",
-    "bg-yellow-300",
-    "bg-purple-300",
-    "bg-pink-300",
-    "bg-gray-300",
-    "bg-slate-300",
-    "bg-orange-300",
-    "bg-cyan-300",
-    "bg-violet-300",
-    "bg-rose-300",
-  ];
-
-  const randomColorClass = colors[Math.floor(Math.random() * colors.length)];
+  const randomColorClass =
+    StackColors[Math.floor(Math.random() * StackColors.length)];
 
   return (
-    <div className="flex select-none flex-col rounded-xl bg-white shadow-lg">
+    <div className="flex select-none h-full flex-col rounded-xl bg-white shadow-lg">
       <div className="rounded-lg bg-black">
         <img
           src={blog.img ? `/upload/blog/${blog.img}` : BlogDefault}
@@ -35,12 +28,26 @@ const BlogCard = ({ blog }) => {
           loading="lazy"
         />
       </div>
-      <div className="mt-4 flex flex-wrap gap-2 px-4 text-xs">
+      <div className="mt-4 flex flex-wrap gap-2 px-4 text-xs items-center justify-between">
         <span
           className={`rounded-lg ${randomColorClass ? randomColorClass : `bg-green-300`} px-4 py-1`}
         >
           {blog.category}
         </span>
+        {currentUser && currentUser.id === blog.authorId && (
+          <div className="right-0 gap-2 flex text-white text-[15px]">
+            <span
+              className={`rounded-lg bg-orange-600 px-2 py-1 hover:scale-110 transition-transform cursor-pointer`}
+            >
+              <FaEdit />
+            </span>
+            <span
+              className={`rounded-lg bg-red-600 px-2 py-1 hover:scale-110 transition-transform cursor-pointer`}
+            >
+              <MdDelete />
+            </span>
+          </div>
+        )}
       </div>
       <Link to={`/blog/${blog.slug}`}>
         <p className="px-4 pb-4 pt-4 text-center text-neutral-600 hover:underline">
