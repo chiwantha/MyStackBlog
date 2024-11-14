@@ -114,7 +114,7 @@ const login = () => {
                 <RegularBtn label={"LogIn"} fill={1} />
               </div>
               <Link to="/home">
-                <RegularBtn label={"Back to home"} />
+                <RegularBtn label={"Back to home"} fill={1} />
               </Link>
             </div>
             <span>

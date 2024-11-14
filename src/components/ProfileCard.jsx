@@ -113,7 +113,7 @@ const ProfileCard = ({ data, onList }) => {
                     seteditorOpen(!editorOpen);
                   }}
                 >
-                  <RegularBtn label={"Edit Profile"} />
+                  <RegularBtn fill={1} label={"Edit Profile"} />
                 </span>
               </div>
             </div>
